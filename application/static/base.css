@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: Questrial;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: right;
+    height: 70px;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #1a000d;
+}
+
+.nav-bar {
+  margin: 0;
+  padding: 0;
+  background-color: #33001a;
+}
+
+.nav-item {
+    line-height: 0.7;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.side-column {
+    float: left;
+    width: 25%;
+}
+
+.content-column {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.web-title {
+  float: left;
+  color: white;
+  line-height: 2;
+  display: inline-block;
+  vertical-align: middle;
+}
