@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6!l^&fsdzh9fw5+ijgxkedu!)!37_6l$it@l5z2a7um=kesv4%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['pumingwebenv.cqj23hp7xb.us-west-2.elasticbeanstalk.com']
 
@@ -127,3 +127,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
     '/Users/pumingli/Programming/pumingwebenv/pumingweb/static/',
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
