@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from datetime import datetime
 
 def diet(request):
-    return render(request, 'diet.html')
+    context = {'current': datetime.now}
+    return render(request, 'diet.html', context)
