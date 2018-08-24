@@ -25,8 +25,8 @@ SECRET_KEY = '6!l^&fsdzh9fw5+ijgxkedu!)!37_6l$it@l5z2a7um=kesv4%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pumingwebenv.cqj23hp7xb.us-west-2.elasticbeanstalk.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['pumingwebenv.cqj23hp7xb.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -123,9 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
-    '/Users/pumingli/Programming/pumingwebenv/pumingweb/staticfiles/',
-]
-# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-STATIC_ROOT = "static"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATIC_ROOT = "static"
