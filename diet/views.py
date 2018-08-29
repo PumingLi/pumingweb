@@ -10,7 +10,7 @@ def diet(request):
     cal = calendar.Calendar()
     today = datetime.now().timetuple()
 
-    month = cal.itermonthdays4(today.tm_year, today.tm_mon)
+    month = cal.itermonthdays3(today.tm_year, today.tm_mon)
 
     month_matrix = []
     _week = []
@@ -19,7 +19,7 @@ def diet(request):
 
         _day = list(day)
         _day[1] = MONTH_MAP[day[1]]
-        _day[3] = WEEK_MAP[day[3]]
+        _day.append(WEEK_MAP[count])
         _week.append(_day)
         count += 1
         if count % 7 == 0 and count != 0:
