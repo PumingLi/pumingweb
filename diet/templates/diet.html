@@ -16,24 +16,16 @@
     {% for day in week %}
     <td>
       <div class="calender-day">
-
-        {# {% with weekday=day.3 %} #}
         {% if day.2 == cur_day %}
           <div class="current-day">
-            <p>{{ day.3 }}</p>
-            <h1>{{ day.2 }}</h1>
-          </div>
         {% elif day.1 == cur_month %}
-
-          <p>{{ day.3 }}</p>
-          <h1>{{ day.2 }}</h1>
-
+          <div>
         {% else %}
           <div class="not-month-day">
-            <p>{{ day.3 }}</p>
-            <h1>{{ day.2 }}</h1>
-          </div>
         {% endif %}
+          <p>{{ day.3 }}</p>
+          <h1>{{ day.2 }}</h1>
+        </div>
       </div>
     </td>
     {% endfor %}

@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import calender
+import calendar
 
 def home(request):
 
     cal = calendar.Calendar()
-    today = datetime.now().timetuple()
+    # today = datetime.now().timetuple()
 
-    month = cal.itermonthdates(today.tm_year, today.tm_mon)
+    month = cal.itermonthdates(2018, 8)
 
 
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'month': month})
