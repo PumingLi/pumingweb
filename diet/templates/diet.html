@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'diet.css' %}">{% endblock %}
 
 {% block title %}Diet{% endblock %}
 {% block content %}
@@ -8,14 +11,34 @@
 <p>This will be a calender of macros and nutrients each day</p>
 <p>{{ current }}</p>
 <table style="width:100%">
+  {% for week in month_matrix %}
   <tr>
-    <td>January
+    {% for day in week %}
+    <td>
+      <div class="calender-day">
+
+        {# {% with weekday=day.3 %} #}
+        {% if day.2 == cur_day %}
+          <div class="current-day">
+            <p>{{ day.3 }}</p>
+            <h1>{{ day.2 }}</h1>
+          </div>
+        {% elif day.1 == cur_month %}
+
+          <p>{{ day.3 }}</p>
+          <h1>{{ day.2 }}</h1>
+
+        {% else %}
+          <div class="not-month-day">
+            <p>{{ day.3 }}</p>
+            <h1>{{ day.2 }}</h1>
+          </div>
+        {% endif %}
+      </div>
     </td>
-    <td>$100</td>
+    {% endfor %}
   </tr>
-  <tr>
-    <td>February</td>
-    <td>$50</td>
-  </tr>
+  {% endfor %}
 </table>
+
 {% endblock %}
