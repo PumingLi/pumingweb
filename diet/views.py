@@ -25,3 +25,8 @@ def diet(request):
 
     context = {'cur_month': MONTH_MAP[today.tm_mon], 'cur_year': today.tm_year, 'cur_day': today.tm_mday, 'month_matrix': month_matrix, "week_map": WEEK_MAP, "month_map": MONTH_MAP}
     return render(request, 'diet.html', context)
+
+
+def results(request, question_id):
+    
+    return render(request, 'polls/results.html', {'question': question})
