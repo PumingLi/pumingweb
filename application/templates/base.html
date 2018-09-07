@@ -1,4 +1,13 @@
 {% load static %}
+
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
 <head>
   <title>Puming | {% block title %}Home{% endblock %}</title>
   <meta http-equiv="cache-control" content="max-age=0" />
