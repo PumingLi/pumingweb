@@ -28,5 +28,5 @@ def diet(request):
 
 
 def results(request, question_id):
-    
-    return render(request, 'polls/results.html', {'question': question})
+
+    return render(request, 'results.html', {'question': question})
