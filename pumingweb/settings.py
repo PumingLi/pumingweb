@@ -25,7 +25,7 @@ SECRET_KEY = '6!l^&fsdzh9fw5+ijgxkedu!)!37_6l$it@l5z2a7um=kesv4%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'pumingwebenv.cqj23hp7xb.us-west-2.elasticbeanstalk.com', "ec2-34-209-212-235.us-west-2.compute.amazonaws.com", '34.209.212.235']
+ALLOWED_HOSTS = ['localhost', 'pumingwebenv.cqj23hp7xb.us-west-2.elasticbeanstalk.com', "ec2-34-209-212-235.us-west-2.compute.amazonaws.com", '34.209.212.235', "yeetcode.ml"]
 # ALLOWED_HOSTS = []
 
 # Application definition
