@@ -39,21 +39,6 @@ li a:hover {
     vertical-align: middle;
 }
 
-.side-column {
-    float: left;
-    width: 25%;
-}
-
-.content-column {
-    float: left;
-    width: 50%;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
 
 .web-title {
   float: left;

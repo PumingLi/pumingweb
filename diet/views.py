@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from datetime import datetime
+
+from .models import NutritionDay, NutritionWeek, NutritionMonth
+
+from datetime import datetime, date
 import calendar
 
 MONTH_MAP = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-WEEK_MAP = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+WEEK_MAP = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 def diet(request):
 
@@ -11,22 +14,34 @@ def diet(request):
     today = datetime.now().timetuple()
     month = cal.itermonthdates(today.tm_year, today.tm_mon)
 
-    month_matrix = []
-    _week = []
-    count = 0
-    for day in month:
-        _day_t = day.timetuple()
-        _week.append((_day_t.tm_year, MONTH_MAP[_day_t.tm_mon], _day_t.tm_mday, WEEK_MAP[count]))
-        count += 1
-        if count % 7 == 0 and count != 0:
-            month_matrix.append(_week)
-            _week = []
-            count = 0
 
-    context = {'cur_month': MONTH_MAP[today.tm_mon], 'cur_year': today.tm_year, 'cur_day': today.tm_mday, 'month_matrix': month_matrix, "week_map": WEEK_MAP, "month_map": MONTH_MAP}
+    if len(NutritionMonth.objects.filter(year=today.tm_year).filter(month=MONTH_MAP[today.tm_mon-1])) > 0:
+        cur_month = NutritionMonth.objects.filter(year=today.tm_year).get(month=MONTH_MAP[today.tm_mon-1])
+    else:
+        cur_month = NutritionMonth(year=today.tm_year, month=MONTH_MAP[today.tm_mon-1])
+        cur_month.save()
+
+        count = 0
+        w_num = 0
+        for day in month:
+
+            if count%7 == 0:
+                count = 0
+                cur_week = NutritionWeek(month=cur_month, week_num=w_num)
+                cur_week.save()
+                w_num += 1
+
+            _day_t = day.timetuple()
+            cur_day = NutritionDay(week=cur_week, cur_date=date(_day_t.tm_year, _day_t.tm_mon, _day_t.tm_mday), weekday=WEEK_MAP[count])
+            cur_day.save()
+
+            count+=1
+    context = {'cur_month': MONTH_MAP[today.tm_mon-1], 'cur_year': today.tm_year, 'cur_day': today.tm_mday, 'month': cur_month}
+
     return render(request, 'diet.html', context)
 
 
-def results(request, question_id):
+def day_details(request, day_id):
+    context = {'day': NutritionDay.objects.get(id=day_id)}
 
-    return render(request, 'results.html', {'question': question})
+    return render(request, 'day_details.html', context)

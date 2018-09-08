@@ -34,31 +34,16 @@ li a:hover {
 }
 
 .nav-item {
-    line-height: 1;
+    line-height: 3;
     display: inline-block;
     vertical-align: middle;
 }
 
-.side-column {
-    float: left;
-    width: 25%;
-}
-
-.content-column {
-    float: left;
-    width: 50%;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
 
 .web-title {
   float: left;
   color: white;
-  line-height: 0.5;
+  line-height: 1;
   display: inline-block;
   vertical-align: middle;
   font-size: 30px;
