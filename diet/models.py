@@ -17,12 +17,16 @@ class NutritionMonth(models.Model):
         ('November', 'November'),
         ('December', 'December'),
     )
+
+
+
     year = models.IntegerField()
     month = models.TextField(default="January", choices=MONTHS)
+    month_num = models.IntegerField(default=1, choices=[(d, d) for d in range(1, 13)])
 
 class NutritionWeek(models.Model):
     month = models.ForeignKey(NutritionMonth, on_delete=models.CASCADE)
-    week_num = models.IntegerField(default=0)
+    week_num = models.IntegerField(default=1, choices=[(w, w) for w in range(1, 6)])
 
 
 class NutritionDay(models.Model):

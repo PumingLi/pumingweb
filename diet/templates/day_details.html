@@ -3,11 +3,23 @@
 
 {% block title %}Diet{% endblock %}
 {% block content %}
-<br>
 <div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-6">
-    <h1 style="text-align:center;font-family:Galada">{{ day.weekday }}, {{ day.week.month.month }} {{ day.cur_date.day }}, {{ day.cur_date.year }}</h1>
+    <br>
+    <table style="width:100%">
+      <tr>
+        <td>
+          <a href="#" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
+        </td>
+        <td>
+          <h1 style="text-align:center;font-family:Galada">{{ day.weekday }}, {{ day.week.month.month }} {{ day.cur_date.day }}, {{ day.cur_date.year }}</h1>
+        </td>
+        <td>
+          <a href="#" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
+        </td>
+      </tr>
+    </table>
     <hr>
   </div>
   <div class="col-md-3">
