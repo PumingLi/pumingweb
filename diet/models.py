@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class NutritionMonth(models.Model):
 
     MONTHS = (
@@ -17,17 +16,10 @@ class NutritionMonth(models.Model):
         ('November', 'November'),
         ('December', 'December'),
     )
-
-
-
     year = models.IntegerField()
     month = models.TextField(default="January", choices=MONTHS)
     month_num = models.IntegerField(default=1, choices=[(d, d) for d in range(1, 13)])
-
-class NutritionWeek(models.Model):
-    month = models.ForeignKey(NutritionMonth, on_delete=models.CASCADE)
-    week_num = models.IntegerField(default=1, choices=[(w, w) for w in range(1, 6)])
-
+    month_slug = models.TextField(default="00-00")
 
 class NutritionDay(models.Model):
 
@@ -39,7 +31,8 @@ class NutritionDay(models.Model):
                 ("Friday", "Friday"),
                 ("Saturday", "Saturday"),
                 )
-    week = models.ForeignKey(NutritionWeek, on_delete=models.CASCADE)
+    month = models.ForeignKey(NutritionMonth, on_delete=models.CASCADE)
+    day_slug = models.TextField(default="00-00-00")
     weekday = models.TextField(default="Sunday", choices=WEEKDAYS)
     cur_date = models.DateField()
     calories = models.IntegerField(default=0)

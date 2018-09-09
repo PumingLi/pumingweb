@@ -10,13 +10,13 @@
     <table style="width:100%">
       <tr>
         <td>
-          <a href="#" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
+          <a href="{% url 'day_view' prev_day.0 prev_day.1 prev_day.2 %}" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
         </td>
         <td>
-          <h1 style="text-align:center;font-family:Galada">{{ day.weekday }}, {{ day.week.month.month }} {{ day.cur_date.day }}, {{ day.cur_date.year }}</h1>
+          <h1 style="text-align:center;font-family:Galada;">{{ day.weekday }}, {{ day.month.month }} {{ day.cur_date.day }}, {{ day.cur_date.year }}</h1>
         </td>
         <td>
-          <a href="#" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
+          <a href="{% url 'day_view' next_day.0 next_day.1 next_day.2 %}" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
         </td>
       </tr>
     </table>

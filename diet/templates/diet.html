@@ -12,27 +12,34 @@
       <table style="width:100%">
         <tr>
           <td>
-            <a href="{% url 'month_view' prev_url %}" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
+            <a href="{% url 'month_view' prev_year prev_month %}" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
           </td>
           <td>
-            <h1 style="font-family: Galada; text-align: center; font-size: 50px">{{ cur_month }} {{ cur_year }}</h1>
+            <h1 style="font-family: Galada; text-align: center; font-size: 50px">{{ month.month }} {{ month.year }}</h1>
           </td>
           <td>
-            <a href="{% url 'month_view' next_url %}" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
+            <a href="{% url 'month_view' next_year next_month %}" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
           </td>
         </tr>
       </table>
     <hr>
     <table style="width:100%" class="diet-calendar">
-      {% for w in month.nutritionweek_set.all %}
+      {% for week in month_iter %}
       <tr>
-        {% for d in w.nutritionday_set.all %}
+        {% for d in week %}
         <td>
-
-          <a href="/diet/{{ d.id }}/" class="calendar-link">
+          <a href="{% url 'day_view' d.cur_date.year d.cur_date.month d.cur_date.day %}" class="calendar-link">
             <div class=calender-day>
+              {% if d.cur_date.day == cur_day and d.cur_date.month == cur_month and d.cur_date.year == cur_year %}
+                <div class=current-day>
+              {% elif d.cur_date.month == month.month_num %}
+                <div class=month-day>
+              {% else %}
+                <div class=not-month-day>
+              {% endif %}
               <p>{{ d.weekday }}</p>
               <h1>{{ d.cur_date.day }}</h1>
+            </div>
             </div>
           </a>
 
