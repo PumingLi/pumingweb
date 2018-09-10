@@ -1,13 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import calendar
+
+from graphos.sources.simple import SimpleDataSource
+from graphos.renderers.gchart import LineChart
 
 def home(request):
 
-    cal = calendar.Calendar()
-    # today = datetime.now().timetuple()
-
-    month = cal.itermonthdates(2018, 8)
-
-
-    return render(request, 'home.html', {'month': month})
+    return render(request, 'home.html')

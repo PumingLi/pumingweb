@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'diet.css' %}">{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'diet.css' %}">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="{% static 'graphs.js' %}"></script>
+{% endblock %}
 
 {% block title %}Diet{% endblock %}
 {% block content %}
@@ -15,7 +19,7 @@
             <a href="{% url 'month_view' prev_year prev_month %}" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
           </td>
           <td>
-            <h1 style="font-family: Galada; text-align: center; font-size: 50px">{{ month.month }} {{ month.year }}</h1>
+            <h1 style="font-family: Galada; text-align: center; font-size: 40px">{{ month.month }} {{ month.year }}</h1>
           </td>
           <td>
             <a href="{% url 'month_view' next_year next_month %}" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
@@ -40,6 +44,20 @@
               <p>{{ d.weekday }}</p>
               <h1>{{ d.cur_date.day }}</h1>
             </div>
+            <div class="row">
+              <div class="col-md-6">
+                {# <div id="calories-donut" style="align:center; width:100%; height:30%"></div> #}
+              </div>
+              <div class="col-md-6">
+                {# <div id="protein-donut" style="align:center; width:100%; height:30%"></div> #}
+              </div>
+              <div class="col-md-6">
+                {# <div id="carbs-donut" style="align:center; width:100%; height:30%"></div>\ #}
+              </div>
+              <div class="col-md-6">
+                {# <div id="fat-donut" style="align:center; width:100%; height:30%"></div> #}
+              </div>
+            </div>
             </div>
           </a>
 
@@ -49,6 +67,7 @@
       {% endfor %}
     </table>
     <br>
+
   </div>
   <div class="col-md-3"></div>
 </div>

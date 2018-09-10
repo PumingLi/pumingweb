@@ -4,6 +4,7 @@ from .models import NutritionDay, NutritionMonth
 from .helper import MONTH_MAP, WEEK_MAP, get_month, get_next_month, get_prev_month, get_day_offset
 
 from datetime import datetime, date
+import json
 
 def month_current(request):
 
@@ -51,9 +52,13 @@ def day_view(request, year, month, day):
 
     _slug = "%d-%d-%d" % (year, month, day)
 
+    # calories_data = json.dumps({"calories_data": [['Sources', 'Calories'],['Breakfast', 100],['Lunch', 50],['Dinner', 50], ['Snacks', 50], ['Other', 50]]})
+    calories_data = json.dumps({'calories_data': [['Sources', 'Calories'],['Breakfast', 100],['Lunch', 150],['Dinner', 50], ['Snacks', 50], ['Other', 50]]})
+
+
     context = {'day': NutritionDay.objects.get(day_slug=_slug),
                'prev_day': get_day_offset(year, month, day, -1),
-               'next_day': get_day_offset(year, month, day, 1)}
-
+               'next_day': get_day_offset(year, month, day, 1),
+               'calories_data': calories_data}
 
     return render(request, 'day_details.html', context)

@@ -13,9 +13,17 @@
   padding: 10px;
   border:2px solid grey;
   border-radius: 5px;
-  height: 160px;
+  height: 200px;
   margin: 5px;
   text-align: center;
+}
+
+.content-card {
+  color: black;
+  padding: 10px;
+  border:2px solid grey;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 .not-month-day {

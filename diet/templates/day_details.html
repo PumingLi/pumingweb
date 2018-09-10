@@ -1,7 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'diet.css' %}">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+try {
+  var dietData = JSON.parse('{{ calories_data|safe }}');
+}catch(e){
+  document.write(e);
+}
+</script>
+<script type="text/javascript" src="{% static 'graphs.js' %}"></script>
+{% endblock %}
 
-{% block title %}Diet{% endblock %}
+{% block title %}Diet Details{% endblock %}
 {% block content %}
 <div class="row">
   <div class="col-md-3"></div>
@@ -13,7 +25,7 @@
           <a href="{% url 'day_view' prev_day.0 prev_day.1 prev_day.2 %}" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
         </td>
         <td>
-          <h1 style="text-align:center;font-family:Galada;">{{ day.weekday }}, {{ day.month.month }} {{ day.cur_date.day }}, {{ day.cur_date.year }}</h1>
+          <h1 style="text-align:center;font-family:Galada;">{{ day.weekday }}, {{ day.month.month_num }}/{{ day.cur_date.day }}/{{ day.cur_date.year }}</h1>
         </td>
         <td>
           <a href="{% url 'day_view' next_day.0 next_day.1 next_day.2 %}" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
@@ -21,6 +33,171 @@
       </tr>
     </table>
     <hr>
+    <h1>Diet Breakdown</h1>
+    <h2 style="text-align:center;">Calories</h2>
+
+    <div id="calories-donut" style="width: 100%; height: 50%"></div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h3 style="text-align:center;">Protein</h3>
+        <div id="protein-donut" style="align:center; width:100%; height:30%"></div>
+      </div>
+      <div class="col-md-4">
+        <h3 style="text-align:center;">Carbohydrates</h3>
+        <div id="carb-donut" style="align:center; width:100%; height:30%"></div>
+      </div>
+      <div class="col-md-4">
+        <h3 style="text-align:center;">Fats</h3>
+        <div id="fat-donut" style="align:center; width:100%; height:30%"></div>
+      </div>
+    </div>
+    <hr>
+    <h1>Food Datatable</h1>
+
+    <table class="table" style="width: 100%">
+      <thead>
+        <tr>
+          <th scope="col">Food</th>
+          <th scope="col">Meal</th>
+          <th scope="col">Calories</th>
+          <th scope="col">Protein</th>
+          <th scope="col">Carbs</th>
+          <th scope="col">Fat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Almond Milk</th>
+          <td>Breakfast</td>
+          <td>30</td>
+          <td>1</td>
+          <td>0</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <th scope="row">Chicken Fried Rice</th>
+          <td>Lunch</td>
+          <td>770</td>
+          <td>20</td>
+          <td>10</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <th scope="row">Belvita</th>
+          <td>Snack</td>
+          <td>400</td>
+          <td>5</td>
+          <td>60</td>
+          <td>9</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <h1>Exercise</h1>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="content-card">
+          <h4 style="text-align:center;">Push</h4>
+          <table class="table" style="width: 100%; font-size: small">
+            <thead>
+              <tr>
+                <th scope="col">Workout</th>
+                <th scope="col">Sets</th>
+                <th scope="col">Reps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Bench</th>
+                <td>4</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th scope="row">Cables</th>
+                <td>4</td>
+                <td>15</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="content-card">
+          <h4 style="text-align:center;">Pull</h4>
+          <table class="table" style="width: 100%; font-size: small">
+            <thead>
+              <tr>
+                <th scope="col">Workout</th>
+                <th scope="col">Sets</th>
+                <th scope="col">Reps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Rows</th>
+                <td>4</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th scope="row">Pullups</th>
+                <td>4</td>
+                <td>15</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="content-card">
+          <h4 style="text-align:center;">Legs</h4>
+          <table class="table" style="width: 100%; font-size: small">
+            <thead>
+              <tr>
+                <th scope="col">Workout</th>
+                <th scope="col">Sets</th>
+                <th scope="col">Reps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Squat</th>
+                <td>4</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th scope="row">Legpress</th>
+                <td>4</td>
+                <td>15</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="content-card">
+          <h4 style="text-align:center;">Cardio</h4>
+          <table class="table" style="width: 100%; font-size: small">
+            <thead>
+              <tr>
+                <th scope="col">Workout</th>
+                <th scope="col">Duration (Min)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Bike</th>
+                <td>10</td>
+              </tr>
+              <tr>
+                <th scope="row">Treadmill</th>
+                <td>40</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-md-3">
 </div>

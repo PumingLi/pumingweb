@@ -19,7 +19,7 @@
   <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Galada' rel='stylesheet'>
   <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
-  {% block style %}{% endblock %}
+  {% block extra_head %}{% endblock %}
 </head>
 
 <body>
@@ -29,9 +29,9 @@
       <div class="col-md-6">
         <h3 class="web-title"><span style="font-family: Galada;">Yeet</span>Code</h3>
         <ul>
-          <li><a href="{% url 'fitness' %}"><p class="nav-item">Fitness</p></a></li>
-          <li><a href="{% url 'diet_month_current' %}"><p class="nav-item">Diet</p></a></li>
+          {# <li><a href="{% url 'blog' %}"><p class="nav-item">Blog</p></a></li> #}
           <li><a href="{% url 'about' %}"><p class="nav-item">About</p></a></li>
+          <li><a href="{% url 'diet_month_current' %}"><p class="nav-item">Diet</p></a></li>
           <li><a href="{% url 'home' %}"><p class="nav-item">Home</p></a></li>
         </ul>
       </div>

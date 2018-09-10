@@ -40,3 +40,19 @@ class NutritionDay(models.Model):
     protein = models.IntegerField(default=0)
     fat = models.IntegerField(default=0)
     weight = models.IntegerField(null=True)
+
+class FoodItem(models.Model):
+
+    MEALS = (("Breakfast", "Breakfast"),
+                ("Lunch", "Lunch"),
+                ("Dinner", "Dinner"),
+                ("Snack", "Snack"),
+                ("Other", "Other"),
+                )
+    day = models.ForeignKey(NutritionDay, on_delete=models.CASCADE)
+    name = models.TextField(default="N/A")
+    type = models.TextField(default="Snack", choices=MEALS)
+    calories = models.IntegerField(default=0)
+    carb = models.IntegerField(default=0)
+    protein = models.IntegerField(default=0)
+    fat = models.IntegerField(default=0)
