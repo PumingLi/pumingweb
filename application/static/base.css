@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  /* margin: 0; */
   font-family: Questrial;
 }
 
@@ -10,12 +10,12 @@ ul {
     overflow: hidden;
 }
 
-li {
+.nav-item {
     float: right;
-    height: 70px;
+    height: 100%;
 }
 
-li a {
+.nav-link {
     display: block;
     color: white;
     text-align: center;
@@ -23,18 +23,60 @@ li a {
     text-decoration: none;
 }
 
-li a:hover {
+.nav-link:hover {
     background-color: #1a000d;
+    color: #993333;
+}
+
+.title-link {
+  color: white;
+  text-decoration: none;
+}
+
+.title-link:hover {
+    color: #993333;
+    text-decoration: none;
+}
+
+.bottom-link {
+  font-size: small;
+  line-height: 6.5;
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  text-decoration: none;
+}
+
+.bottom-link:hover {
+    color: #993333;
+    text-decoration: none;
+}
+
+.bottom-text {
+  margin-top: 35px;
+  font-size: small;
+  color: white;
+  float: right;
 }
 
 .nav-bar {
   margin: 0;
   padding: 0;
+  height: 8%;
   background-color: #33001a;
 }
 
-.nav-item {
-    line-height: 3;
+.bottom-nav-bar {
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 8%;
+  background-color: #33001a;
+}
+
+
+.nav-text {
+    line-height: 3.4;
     display: inline-block;
     vertical-align: middle;
 }
@@ -43,7 +85,7 @@ li a:hover {
 .web-title {
   float: left;
   color: white;
-  line-height: 1;
+  line-height: 2.8;
   display: inline-block;
   vertical-align: middle;
   font-size: 30px;

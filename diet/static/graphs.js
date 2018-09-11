@@ -32,7 +32,7 @@ function drawChart() {
       0: { color: '#ffcc66' },
       1: { color: '#e6e6e6' }
     },
-    chartArea:{left:0,top:10,width:'100%',height:'90%'}
+    chartArea:{left:10,top:10,width:'80%',height:'90%'}
   };
 
   var proteinData = google.visualization.arrayToDataTable([
@@ -51,7 +51,7 @@ function drawChart() {
       0: { color: '#cc3300' },
       1: { color: '#e6e6e6' }
     },
-    chartArea:{left:0,top:10,width:'100%',height:'90%'}
+    chartArea:{left:10,top:10,width:'80%',height:'90%'}
   };
 
   var fatData = google.visualization.arrayToDataTable([
@@ -70,7 +70,7 @@ function drawChart() {
       0: { color: '#ff9999' },
       1: { color: '#e6e6e6' }
     },
-    chartArea:{left:0,top:10,width:'100%',height:'90%'}
+    chartArea:{left:10,top:10,width:'80%',height:'90%'}
   };
 
   var carbChart = new google.visualization.PieChart(document.getElementById('carb-donut'));
