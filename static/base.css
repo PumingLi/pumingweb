@@ -1,92 +1,112 @@
 body {
-  /* margin: 0; */
+  margin: 0;
   font-family: Questrial;
 }
 
-ul {
+/* TOP BAR */
+
+.nav-bar-table {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    height: 70px;
+    line-height: 70px;
     overflow: hidden;
 }
 
 .nav-item {
     float: right;
-    height: 100%;
+    height: 70px;
+    line-height: 70px;
+}
+
+.nav-title {
+    float: left;
+    height: 70px;
+    line-height: 70px;
 }
 
 .nav-link {
-    display: block;
+
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
     color: white;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
+}
+
+.nav-item:hover {
+    background-color: #1a000d;
 }
 
 .nav-link:hover {
-    background-color: #1a000d;
     color: #993333;
 }
+
 
 .title-link {
-  color: white;
-  text-decoration: none;
-}
-
-.title-link:hover {
-    color: #993333;
-    text-decoration: none;
-}
-
-.bottom-link {
-  font-size: small;
-  line-height: 6.5;
   display: inline-block;
   vertical-align: middle;
+  line-height: normal;
   color: white;
   text-decoration: none;
 }
 
-.bottom-link:hover {
+.web-title:hover {
     color: #993333;
     text-decoration: none;
 }
 
-.bottom-text {
-  margin-top: 35px;
-  font-size: small;
-  color: white;
-  float: right;
-}
+
+
+
 
 .nav-bar {
   margin: 0;
   padding: 0;
-  height: 8%;
+  height: 70px;
+  line-height: 70px;
   background-color: #33001a;
 }
+
 
 .bottom-nav-bar {
   bottom: 0;
   margin: 0;
   padding: 0;
-  height: 8%;
+  height: 70px;
+  line-height: 70px;
   background-color: #33001a;
 }
 
 
 .nav-text {
-    line-height: 3.4;
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 
 
 .web-title {
+
   float: left;
   color: white;
-  line-height: 2.8;
+  font-size: 30px;
+}
+
+/* BOTTOM BAR */
+
+.bottom-link {
+  font-size: small;
+  color: white;
+  text-decoration: none;
+}
+
+.bottom-link:hover {
   display: inline-block;
   vertical-align: middle;
-  font-size: 30px;
+  line-height: normal;
+  color: #993333;
+  text-decoration: none;
 }

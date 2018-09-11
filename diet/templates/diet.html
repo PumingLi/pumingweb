@@ -10,8 +10,8 @@
 {% block title %}Diet{% endblock %}
 {% block content %}
 <div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
     <br>
       <table style="width:100%">
         <tr>
@@ -41,7 +41,7 @@
               {% else %}
                 <div class=not-month-day>
               {% endif %}
-              <p>{{ d.weekday }}</p>
+              <p style="font-size:small;">{{ d.weekday }}</p>
               <h1>{{ d.cur_date.day }}</h1>
             </div>
             <div class="row">
@@ -69,6 +69,6 @@
     <br>
 
   </div>
-  <div class="col-md-3"></div>
+  <div class="col-md-2"></div>
 </div>
 {% endblock %}
