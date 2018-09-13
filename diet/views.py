@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 
-from .models import NutritionDay, NutritionMonth, FoodItem
-from .helper import MONTH_MAP, WEEK_MAP, PASTEL_COLORS, DAILY_SERVINGS, get_month, get_next_month, get_prev_month, get_day_offset
-from .forms import FoodForm
+from .models import NutritionDay, NutritionMonth, FoodItem, ExerciseItem
+from .helper import get_month, get_next_month, get_prev_month, get_day_offset
+from .constants import  MONTH_MAP, WEEK_MAP, PASTEL_COLORS, DAILY_SERVINGS
+from .forms import FoodForm, ExerciseForm
 
 from datetime import datetime, date
 
@@ -94,7 +95,12 @@ def day_view(request, year, month, day):
                'fat_data': fat_data,
                'pastel_colors': pastel_colors,
                'day_items': day_items,
-               'form': FoodForm()}
+               'push_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Push"),
+               'pull_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Pull"),
+               'legs_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Legs"),
+               'cardio_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Cardio"),
+               'food_form': FoodForm(),
+               'exercise_form': ExerciseForm()}
 
     return render(request, 'day_details.html', context)
 
@@ -118,6 +124,21 @@ def add_food(request, year_a, month_a, day_a, slug):
                         carbs=f.cleaned_data['item_carbs'],
                         protein=f.cleaned_data['item_protein'],
                         fat=f.cleaned_data['item_fat'])
+        item.save()
+
+    return redirect('day_view', year=year_a, month=month_a, day=day_a)
+
+def add_exercise(request, year_a, month_a, day_a, slug):
+
+    f = ExerciseForm(request.POST)
+    if f.is_valid():
+        cur_day = NutritionDay.objects.get(day_slug=slug)
+        item = ExerciseItem(day=cur_day,
+                            name=f.cleaned_data['exercise_name'],
+                            type=f.cleaned_data['exercise_type'],
+                            reps=f.cleaned_data['exercise_reps'],
+                            sets=f.cleaned_data['exercise_sets'],
+                            time=f.cleaned_data['exercise_time'])
         item.save()
 
     return redirect('day_view', year=year_a, month=month_a, day=day_a)

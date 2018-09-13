@@ -13,7 +13,6 @@
 </script>
 <script type="text/javascript" src="{% static 'js/graphs_details.js' %}"></script>
 {% endblock %}
-
 {% block title %}Diet Details{% endblock %}
 {% block content %}
 <div class="row">
@@ -54,75 +53,36 @@
       </div>
     </div>
     <hr>
+
+    <!-- FOOD DATATABLE -->
+
     <div class="row">
       <div class="col-md-6">
         <h1>Food Datatable</h1>
       </div>
       <div class="col-md-6">
-        <button type="button" class="btn float-right" data-toggle="modal" data-target=".add-food-modal" style="background-color:#33001a;color:white;">Add Item</button>
+        <button type="button" class="btn float-right" data-toggle="modal" data-target=".add-food-modal" style="background-color:#33001a;color:white;">Add Food Item</button>
       </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade add-food-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade add-food-modal" tabindex="-1" role="dialog" aria-labelledby="foodModal" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <form action="{% url 'add_food' day.cur_date.year day.month.month_num day.cur_date.day day.day_slug%}" method="post">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">New Food Item</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
               {% csrf_token %}
-              {{ form.as_p }}
-              <!-- <div class="form-group row">
-                <label for="item_name" class="col-sm-2 col-form-label">Item Name</label>
-                <div class="col-sm-10">
-                  <input class="form-control" id="item_name" placeholder="Rice">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="item_calories" class="col-sm-2 col-form-label">Calories</label>
-                <div class="col-sm-10">
-                  <input class="form-control" id="item_calories" placeholder="100">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="item_carbs" class="col-sm-2 col-form-label">Carbs (g)</label>
-                <div class="col-sm-10">
-                  <input class="form-control" id="item_carbs" placeholder="40">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="item_protein" class="col-sm-2 col-form-label">Protein (g)</label>
-                <div class="col-sm-10">
-                  <input class="form-control" id="item_protein" placeholder="0">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="item_fat" class="col-sm-2 col-form-label">Fat (g)</label>
-                <div class="col-sm-10">
-                  <input class="form-control" id="item_fat" placeholder="1">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="item_type" class="col-sm-2 col-form-label">Item Type</label>
-                <div class="col-sm-10">
-                  <select class="form-control" id="item_type">
-                    <option>Breakfast</option>
-                    <option>Lunch</option>
-                    <option>Dinner</option>
-                    <option>Snack</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-              </div> -->
+              {{ food_form.as_p }}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add Food Item</button>
+            <button type="submit" class="btn btn-primary">Add</button>
           </div>
         </form>
 
@@ -154,9 +114,60 @@
         {% endfor %}
       </tbody>
     </table>
+    {% if day_items|length == 0%}
+    <br>
+    <h3 style="text-align:center;color:lightgrey;"> No Food Added Yet </h3>
+    <br>
+    {% endif %}
     <hr>
-    <h1>Exercises</h1>
+
+
+    <!-- EXERCISE MODAL -->
+
+
     <div class="row">
+      <div class="col-md-6">
+        <h1>Exersices</h1>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn float-right" data-toggle="modal" data-target=".add-exercise" style="background-color:#33001a;color:white;">Add Exercise</button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade add-exercise" tabindex="-1" role="dialog" aria-labelledby="exerciseModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form action="{% url 'add_exercise' day.cur_date.year day.month.month_num day.cur_date.day day.day_slug%}" method="post">
+          <div class="modal-header">
+            <h5 class="modal-title">New Exercise</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              {% csrf_token %}
+              {{ exercise_form.as_p }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- EXERCISE TABLES -->
+  {% if push_exercise|length == 0 and pull_exercise|length == 0 and legs_exercise|length == 0 and cardio_exercise|length == 0 %}
+    <br>
+    <h3 style="text-align:center;color:lightgrey;"> No Exercises Added Today </h3>
+  {% endif %}
+
+  <div class="row">
+    {% if push_exercise|length != 0 %}
       <div class="col-md-6">
         <div class="content-card">
           <h4 style="text-align:center;">Push</h4>
@@ -166,23 +177,25 @@
                 <th scope="col">Workout</th>
                 <th scope="col">Sets</th>
                 <th scope="col">Reps</th>
+                <th scope="col">Weight</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Bench</th>
-                <td>4</td>
-                <td>8</td>
-              </tr>
-              <tr>
-                <th scope="row">Cables</th>
-                <td>4</td>
-                <td>15</td>
-              </tr>
+              {% for e in push_exercise %}
+                <tr>
+                  <th scope="row">{{ e.name }}</th>
+                  <td>{{ e.sets }}</td>
+                  <td>{{ e.reps }}</td>
+                  <td>{{ e.weight }}</td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
+    {% endif %}
+
+    {% if pull_exercise|length != 0 %}
       <div class="col-md-6">
         <div class="content-card">
           <h4 style="text-align:center;">Pull</h4>
@@ -192,23 +205,24 @@
                 <th scope="col">Workout</th>
                 <th scope="col">Sets</th>
                 <th scope="col">Reps</th>
+                <th scope="col">Weight</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Rows</th>
-                <td>4</td>
-                <td>8</td>
-              </tr>
-              <tr>
-                <th scope="row">Pullups</th>
-                <td>4</td>
-                <td>15</td>
-              </tr>
+              {% for e in pull_exercise %}
+                <tr>
+                  <th scope="row">{{ e.name }}</th>
+                  <td>{{ e.sets }}</td>
+                  <td>{{ e.reps }}</td>
+                  <td>{{ e.weight }}</td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
+    {% endif %}
+    {% if legs_exercise|length != 0 %}
       <div class="col-md-6">
         <div class="content-card">
           <h4 style="text-align:center;">Legs</h4>
@@ -218,23 +232,24 @@
                 <th scope="col">Workout</th>
                 <th scope="col">Sets</th>
                 <th scope="col">Reps</th>
+                <th scope="col">Weight</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Squat</th>
-                <td>4</td>
-                <td>8</td>
-              </tr>
-              <tr>
-                <th scope="row">Legpress</th>
-                <td>4</td>
-                <td>15</td>
-              </tr>
+              {% for e in legs_exercise %}
+                <tr>
+                  <th scope="row">{{ e.name }}</th>
+                  <td>{{ e.sets }}</td>
+                  <td>{{ e.reps }}</td>
+                  <td>{{ e.weight }}</td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
+    {% endif %}
+    {% if cardio_exercise|length != 0 %}
       <div class="col-md-6">
         <div class="content-card">
           <h4 style="text-align:center;">Cardio</h4>
@@ -242,22 +257,21 @@
             <thead>
               <tr>
                 <th scope="col">Workout</th>
-                <th scope="col">Time (Min)</th>
+                <th scope="col">Duration (Min)</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Bike</th>
-                <td>10</td>
-              </tr>
-              <tr>
-                <th scope="row">Treadmill</th>
-                <td>40</td>
-              </tr>
+              {% for e in pull_exercise %}
+                <tr>
+                  <th scope="row">{{ e.name }}</th>
+                  <td>{{ e.time }}</td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
+      {% endif %}
     </div>
     <br>
   </div>
