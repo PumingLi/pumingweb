@@ -46,20 +46,19 @@
             </div>
             <hr>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:{{50}}%;background-color:#b30000;" aria-valuenow="{{50}}" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.calories daily_p.CALORIES 1 %}%;background-color:#b30000;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{d.calories}}</div>
             </div>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:50%;background-color:#ffcc66;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.carbs daily_p.CARBS 1 %}%;background-color:#ffcc66;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{d.carbs}}</div>
             </div>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:75%;background-color:#ff8c66;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.protein daily_p.PROTEIN 1 %}%;background-color:#ff8c66;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{d.protein}}</div>
             </div>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:100%;background-color:#ffcccc;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.fat daily_p.FAT 1 %}%;background-color:#ffcccc;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{d.fat}}</div>
             </div>
             </div>
           </a>
-
         </td>
         {% endfor %}
       </tr>

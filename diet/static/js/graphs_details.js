@@ -3,7 +3,8 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 
-  var caloriesData = google.visualization.arrayToDataTable(dietData["calories_data"]);
+
+  var caloriesData = google.visualization.arrayToDataTable(caloriesHash['calories_data']);
 
   var caloriesOptions = {
     pieHole: 0.4,
@@ -17,11 +18,7 @@ function drawChart() {
     chartArea:{left:0,top:10,width:'100%',height:'90%'}
   };
 
-  var carbData = google.visualization.arrayToDataTable([
-    ['Daily Serving', 'Grams'],
-    ['Amount Eaten',     50],
-    ['Amount Left',     50],
-  ]);
+  var carbData = google.visualization.arrayToDataTable(carbsHash['carbs_data']);
 
   var carbOptions = {
     pieHole: 0.4,
@@ -29,18 +26,11 @@ function drawChart() {
       color: 'black',
     },
     legend: 'none',
-    slices: {
-      0: { color: '#ffcc66' },
-      1: { color: '#e6e6e6' }
-    },
+    slices: pastelColors,
     chartArea:{left:10,top:10,width:'80%',height:'90%'}
   };
 
-  var proteinData = google.visualization.arrayToDataTable([
-    ['Daily Serving', 'Grams'],
-    ['Amount Eaten',     70],
-    ['Amount Left',     50],
-  ]);
+  var proteinData = google.visualization.arrayToDataTable(proteinHash['protein_data']);
 
   var proteinOptions = {
     pieHole: 0.4,
@@ -48,18 +38,11 @@ function drawChart() {
       color: 'black',
     },
     legend: 'none',
-    slices: {
-      0: { color: '#cc3300' },
-      1: { color: '#e6e6e6' }
-    },
+    slices: pastelColors,
     chartArea:{left:10,top:10,width:'80%',height:'90%'}
   };
 
-  var fatData = google.visualization.arrayToDataTable([
-    ['Daily Serving', 'Grams'],
-    ['Amount Eaten',     510],
-    ['Amount Left',     50],
-  ]);
+  var fatData = google.visualization.arrayToDataTable(fatHash['fat_data']);
 
   var fatOptions = {
     pieHole: 0.4,
@@ -67,10 +50,7 @@ function drawChart() {
       color: 'black',
     },
     legend: 'none',
-    slices: {
-      0: { color: '#ff9999' },
-      1: { color: '#e6e6e6' }
-    },
+    slices: pastelColors,
     chartArea:{left:10,top:10,width:'80%',height:'90%'}
   };
 

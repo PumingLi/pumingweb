@@ -58,10 +58,10 @@ PASTEL_COLORS = {
 }
 
 DAILY_SERVINGS = {
-'MAX_CALORIES': 2500,
-'MAX_PROTEIN': 150,
-'MAX_CARBS': 180,
-'MAX_FAT': 120}
+'CALORIES': 2500,
+'PROTEIN': 150,
+'CARBS': 180,
+'FAT': 120}
 
 
 def get_prev_month(year, month):
