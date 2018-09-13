@@ -4,13 +4,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'diet.css' %}">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-try {
   var dietData = JSON.parse('{{ calories_data|safe }}');
-}catch(e){
-  document.write(e);
-}
+  var pastelColors = JSON.parse('{{ pastel_colors|safe }}');
 </script>
-<script type="text/javascript" src="{% static 'graphs.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/graphs_details.js' %}"></script>
 {% endblock %}
 
 {% block title %}Diet Details{% endblock %}

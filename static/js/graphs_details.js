@@ -13,6 +13,7 @@ function drawChart() {
     legend: {
       position: 'labeled'
     },
+    slices: pastelColors,
     chartArea:{left:0,top:10,width:'100%',height:'90%'}
   };
 
