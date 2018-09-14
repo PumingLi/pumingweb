@@ -138,6 +138,7 @@ def add_exercise(request, year_a, month_a, day_a, slug):
                             type=f.cleaned_data['exercise_type'],
                             reps=f.cleaned_data['exercise_reps'],
                             sets=f.cleaned_data['exercise_sets'],
+                            weight=f.cleaned_data['exercise_weight'],
                             time=f.cleaned_data['exercise_time'])
         item.save()
 

@@ -16,13 +16,13 @@
       <table style="width:100%">
         <tr>
           <td>
-            <a href="{% url 'month_view' prev_year prev_month %}" class="align-bottom" style="float:left;"><img src="{% static 'left-arrow.png' %}" alt="left_arrow"></a>
+            <a href="{% url 'month_view' prev_year prev_month %}" class="align-bottom" style="float:left;"><img src="{% static 'diet/left-arrow.png' %}" alt="left_arrow"></a>
           </td>
           <td>
             <h1 style="font-family: Galada; text-align: center; font-size: 40px">{{ month.month }} {{ month.year }}</h1>
           </td>
           <td>
-            <a href="{% url 'month_view' next_year next_month %}" class="align-bottom" style="float:right;"><img src="{% static 'right-arrow.png' %}" alt="right_arrow"></a>
+            <a href="{% url 'month_view' next_year next_month %}" class="align-bottom" style="float:right;"><img src="{% static 'diet/right-arrow.png' %}" alt="right_arrow"></a>
           </td>
         </tr>
       </table>
@@ -46,16 +46,16 @@
             </div>
             <hr>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.calories daily_p.CALORIES 1 %}%;background-color:#b30000;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{d.calories}}</div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.calories daily_p.CALORIES 1 %}%;background-color:#b30000;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{% if d.calories != 0 %}{{d.calories}}{% endif %}</div>
             </div>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.carbs daily_p.CARBS 1 %}%;background-color:#ffcc66;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{d.carbs}}</div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.carbs daily_p.CARBS 1 %}%;background-color:#ffcc66;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{% if d.carbs != 0 %}{{d.carbs}}{% endif %}</div>
             </div>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.protein daily_p.PROTEIN 1 %}%;background-color:#ff8c66;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{d.protein}}</div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.protein daily_p.PROTEIN 1 %}%;background-color:#ff8c66;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{% if d.protein != 0 %}{{d.protein}}{% endif %}</div>
             </div>
             <div class="progress" style="margin-bottom:5px;">
-              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.fat daily_p.FAT 1 %}%;background-color:#ffcccc;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{d.fat}}</div>
+              <div class="progress-bar" role="progressbar" style="width:{% widthratio d.fat daily_p.FAT 1 %}%;background-color:#ffcccc;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{% if d.fat != 0 %}{{d.fat}}{% endif %}</div>
             </div>
             </div>
           </a>
