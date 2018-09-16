@@ -80,10 +80,10 @@ def day_view(request, year, month, day):
         protein_array.append([item.name, item.protein])
         fat_array.append([item.name, item.fat])
 
-    calories_data = json.dumps({'calories_data': calories_array})
-    carbs_data = json.dumps({'carbs_data': carbs_array})
-    protein_data = json.dumps({'protein_data': protein_array})
-    fat_data = json.dumps({'fat_data': fat_array})
+    calories_data = json.dumps({'calories_data': calories_array}).replace("'", "")
+    carbs_data = json.dumps({'carbs_data': carbs_array}).replace("'", "")
+    protein_data = json.dumps({'protein_data': protein_array}).replace("'", "")
+    fat_data = json.dumps({'fat_data': fat_array}).replace("'", "")
 
 
     context = {'day': cur_day,
@@ -101,7 +101,8 @@ def day_view(request, year, month, day):
                'cardio_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Cardio"),
                'food_form': FoodForm(),
                'exercise_form': ExerciseForm(),
-               'search_form': SearchForm()}
+               'search_form': SearchForm(),
+               'recent': FoodItem.objects.all().order_by('-id')[:3]}
 
     return render(request, 'day_details.html', context)
 
@@ -145,22 +146,51 @@ def add_exercise(request, year_a, month_a, day_a, slug):
 
     return redirect('day_view', year=year_a, month=month_a, day=day_a)
 
-def food_search(request, query):
+def food_search(request, slug, query, meal):
+    foods = []
+
     if query != "":
-        url = "https://api.nutritionix.com/v1_1/search/{0}?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_total_carbohydrate%2Cnf_protein&appId=d8a86782&appKey=9b13b3a57bad7df2acda43096b3133ce".format(query)
+        url = "https://api.nutritionix.com/v1_1/search/{0}?results=0%3A50&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_total_carbohydrate%2Cnf_protein&appId=d8a86782&appKey=9b13b3a57bad7df2acda43096b3133ce".format(query)
         r = requests.get(url)
         response = json.loads(r.content)
         try:
-            foods = response["hits"]
-            if response['total_hits'] > 100:
-                foods = foods[:100]
+            for f in response["hits"]:
+                for k in f['fields'].keys():
+                    if f['fields'][k] is None:
+                        f['fields'][k] = 0
+                    elif type(f['fields'][k]) is float:
+                        f['fields'][k] = int(f['fields'][k])
+                foods.append(f['fields'])
             error = 0
         except KeyError:
-            foods = []
             error = response
     else:
-        foods = []
         error = 0
 
-    # foods = [f['fields'] for f in foods]
-    return render(request, 'food_search.html', context={'query': query, 'response': foods, 'error': error})
+    context = {'query': query,
+               'foods': foods,
+               'error': error,
+               'slug': slug,
+               'meal': meal}
+
+    return render(request, 'food_search.html', context=context)
+
+def add_food_api(request, slug, name, brand, calories, carbs, protein, fat, meal):
+
+    cur_day = NutritionDay.objects.get(day_slug=slug)
+    cur_day.calories += calories
+    cur_day.carbs += carbs
+    cur_day.protein += protein
+    cur_day.fat += fat
+    cur_day.save()
+
+    item = FoodItem(day=cur_day,
+                    name="{} ({})".format(name, brand),
+                    type=meal,
+                    calories=calories,
+                    carbs=carbs,
+                    protein=protein,
+                    fat=fat)
+    item.save()
+
+    return redirect('day_view', year=cur_day.cur_date.year, month=cur_day.cur_date.month, day=cur_day.cur_date.day)

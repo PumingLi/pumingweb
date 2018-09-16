@@ -1,15 +1,18 @@
-
-
-<div class="row">
-  {% for food in response %}
-  <div class="col-md-4">
-    <div style="color: black;padding:10px;border:2px solid grey;border-radius:5px;margin-bottom:20px;">
-      <h4>{{food.fields.item_name}}</h4>
-      <p style="font-size:small;">Brand: {{food.fields.brand_name}}</p>
-      <hr>
-      <p>Calories: {{food.fields.nf_calories}}<br>Carbs: {{food.fields.nf_total_carbohydrate}}<br>Protein: {{food.fields.nf_protein}}<br>Fat: {{food.fields.nf_total_fat}}</p>
-    </div>
+{% if foods|length == 0 %}
+  <p style="text-align:center;font-size:30px;margin-top:25%;color:lightgrey">No Results</p>
+{% else %}
+  <div class="row">
+    {% for food in foods %}
+      <div class="col-md-4">
+        <a href="{% url 'add_food_api' slug food.item_name food.brand_name food.nf_calories food.nf_total_carbohydrate food.nf_protein food.nf_total_fat meal%}">
+        <div style="color: black;padding:10px;border:2px solid grey;border-radius:5px;margin-bottom:10px;">
+          <h4>{{food.item_name}}</h4>
+          <small style="color:grey;">Brand: {{food.brand_name}}</small>
+          <hr>
+          <small>Calories: {{food.nf_calories}}<br>Carbs: {{food.nf_total_carbohydrate}}<br>Protein: {{food.nf_protein}}<br>Fat: {{food.nf_total_fat}}</small>
+        </div>
+        </a>
+      </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-
-</div>
+{% endif %}

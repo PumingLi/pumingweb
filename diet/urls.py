@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:year_a>/<int:month_a>/<int:day_a>/<str:slug>/add-food', views.add_food, name='add_food'),
     path('<int:year_a>/<int:month_a>/<int:day_a>/<str:slug>/add-exercise', views.add_exercise, name='add_exercise'),
     path('<int:year>/<int:month>', views.month_view, name='month_view'),
-    path('food-search/<str:query>', views.food_search, name='food_search'),
+    path('food-search/<str:slug>/<str:query>/<str:meal>', views.food_search, name='food_search'),
+    path('add-food-api/<str:slug>/<str:name>/<str:brand>/<int:calories>/<int:carbs>/<int:protein>/<int:fat>/<str:meal>', views.add_food_api, name='add_food_api'),
 ]

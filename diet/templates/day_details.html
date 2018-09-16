@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
-{% block extra_head %}
 
+{% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'diet.css' %}">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+
   var caloriesHash = JSON.parse('{{ calories_data|safe }}');
   var carbsHash = JSON.parse('{{ carbs_data|safe }}');
   var proteinHash = JSON.parse('{{ protein_data|safe }}');
@@ -15,7 +16,9 @@
 </script>
 <script type="text/javascript" src="{% static 'js/graphs_details.js' %}"></script>
 {% endblock %}
+
 {% block title %}Diet Details{% endblock %}
+
 {% block content %}
 <div class="row">
   <div class="col-md-3"></div>
@@ -40,16 +43,16 @@
 
     <div class="row">
       <div class="col-md-4">
-        <h3 style="text-align:center;">Protein</h3>
-        <div id="protein-donut" style="align:center; width:100%; height:30%"></div>
+        <h3 style="text-align:center;align:center;">Protein</h3>
+        <div id="protein-donut" style="align:center; width:100%; height:40%"></div>
       </div>
       <div class="col-md-4">
-        <h3 style="text-align:center;">Carbohydrates</h3>
-        <div id="carb-donut" style="align:center; width:100%; height:30%"></div>
+        <h3 style="text-align:center;align:center;">Carbohydrates</h3>
+        <div id="carb-donut" style="align:center; width:100%; height:40%"></div>
       </div>
       <div class="col-md-4">
-        <h3 style="text-align:center;">Fats</h3>
-        <div id="fat-donut" style="align:center; width:100%; height:30%"></div>
+        <h3 style="text-align:center;align:center;">Fats</h3>
+        <div id="fat-donut" style="align:center; width:100%; height:40%"></div>
       </div>
     </div>
     <hr>
@@ -75,25 +78,27 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" >
-            <div class="form-row">
-              <div class="col-md-8">
-                <input type="text" class="form-control" id="search_value" placeholder="Food">
-              </div>
-              <div class="col-md-4">
-                <button id="search-button" class="btn btn-primary" type="button" name="button">Search</button>
-              </div>
+          <div class="modal-body">
+            <p>Type into search bar, select which meal, and click on the item that matches your search.</p>
+            <div class="form-inline" style="width:100%">
+              <input type="text" class="form-control" id="search-value" placeholder="Search Food..." style="width:85%;">
+              <button id="search-button" class="btn btn-primary" type="button" name="button" style="width:15%;background-color:#33001a;color:white;">Search</button>
             </div>
-            <br>
             <hr>
-            <div id="cur_time" style="height:50%;overflow-y:auto">
+            <div id="cur_time" style="height:50%;overflow-y:auto;max-width:100%;overflow-x:hidden;">
               <p style="text-align:center;font-size:30px;margin-top:25%;color:lightgrey">Search Food To Add</p>
             </div>
           </div>
           <div class="modal-footer">
+            <select id="select-meal" class="custom-select">
+              <option selected>Breakfast</option>
+              <option value="1">Lunch</option>
+              <option value="2">Dinner</option>
+              <option value="3">Snack</option>
+              <option value="4">Other</option>
+            </select>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
-
         </div>
       </div>
     </div>
@@ -286,30 +291,13 @@
 </div>
 
 <script>
-
-$(document).ready(function(){
-    $("#id_food_search").keyup(function(){
-        alert($(this).val());
-    });
-})
-
-function myFunction() {
-    alert("Hello\nHow are you?");
-}
-String.format = function() {
-  var s = arguments[0];
-  for (var i = 0; i < arguments.length - 1; i++) {
-    var reg = new RegExp("\\{" + i + "\\}", "gm");
-    s = s.replace(reg, arguments[i + 1]);
-  }
-
-  return s;
-}
-
 document.getElementById("search-button").addEventListener("click", function(event){
     event.preventDefault()
-    var query = $('#search_value').val();
-    var dest = "/diet/food-search/" + query;
+    var slug = '{{ day.day_slug }}';
+    var query = $('#search-value').val();
+    var meal = $('#select-meal').val();
+
+    var dest = "/diet/food-search/" + slug + '/' + query + '/' + meal;
     $.ajax({
       url: dest,
       success: function(data) {
@@ -317,7 +305,6 @@ document.getElementById("search-button").addEventListener("click", function(even
       }
     });
 });
-
 </script>
 
 {% endblock %}

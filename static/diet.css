@@ -8,16 +8,6 @@
   color: rgba(51, 0, 26, 0.5);
 }
 
-.calender-day {
-  color: black;
-  padding: 10px;
-  border:2px solid grey;
-  border-radius: 5px;
-  /* height: 250px; */
-  margin: 5px;
-  text-align: center;
-}
-
 .content-card {
   color: black;
   padding: 10px;
@@ -29,6 +19,7 @@
 
 .not-month-day {
   color: #bfbfbf;
+
 }
 
 .current-day {
