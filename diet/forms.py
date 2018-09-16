@@ -20,3 +20,7 @@ class ExerciseForm(forms.Form):
     exercise_reps = forms.IntegerField(label='Reps')
     exercise_weight = forms.IntegerField(label='Weight')
     exercise_time = forms.IntegerField(label='Duration')
+
+class SearchForm(forms.Form):
+
+    food_name = forms.CharField(label='Food Name', max_length=100)

@@ -143,3 +143,8 @@ def add_exercise(request, year_a, month_a, day_a, slug):
         item.save()
 
     return redirect('day_view', year=year_a, month=month_a, day=day_a)
+
+def food_search(request):
+
+
+    return render(request, 'food_search.html')
