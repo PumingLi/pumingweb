@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['localhost',
                  '34.209.212.235',
                  'yeetcode.ml',
                  'www.yeetcode.ml',]
-# ALLOWED_HOSTS = []
 
 # Application definition
 

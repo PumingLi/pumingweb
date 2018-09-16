@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect
 from .models import NutritionDay, NutritionMonth, FoodItem, ExerciseItem
 from .helper import get_month, get_next_month, get_prev_month, get_day_offset
 from .constants import  MONTH_MAP, WEEK_MAP, PASTEL_COLORS, DAILY_SERVINGS
-from .forms import FoodForm, ExerciseForm
-
+from .forms import FoodForm, ExerciseForm, SearchForm
+from time import gmtime, strftime
 from datetime import datetime, date
-
+import requests
 import json
 
 DAILY_SCALED = {k:(DAILY_SERVINGS[k])/100 for k in DAILY_SERVINGS}
@@ -100,7 +100,8 @@ def day_view(request, year, month, day):
                'legs_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Legs"),
                'cardio_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Cardio"),
                'food_form': FoodForm(),
-               'exercise_form': ExerciseForm()}
+               'exercise_form': ExerciseForm(),
+               'search_form': SearchForm()}
 
     return render(request, 'day_details.html', context)
 
@@ -144,7 +145,22 @@ def add_exercise(request, year_a, month_a, day_a, slug):
 
     return redirect('day_view', year=year_a, month=month_a, day=day_a)
 
-def food_search(request):
+def food_search(request, query):
+    if query != "":
+        url = "https://api.nutritionix.com/v1_1/search/{0}?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_total_carbohydrate%2Cnf_protein&appId=d8a86782&appKey=9b13b3a57bad7df2acda43096b3133ce".format(query)
+        r = requests.get(url)
+        response = json.loads(r.content)
+        try:
+            foods = response["hits"]
+            if response['total_hits'] > 100:
+                foods = foods[:100]
+            error = 0
+        except KeyError:
+            foods = []
+            error = response
+    else:
+        foods = []
+        error = 0
 
-
-    return render(request, 'food_search.html')
+    # foods = [f['fields'] for f in foods]
+    return render(request, 'food_search.html', context={'query': query, 'response': foods, 'error': error})

@@ -33,7 +33,7 @@
         {% for d in week %}
         <td>
           <a href="{% url 'day_view' d.cur_date.year d.cur_date.month d.cur_date.day %}" class="calendar-link">
-            <div class=calender-day>
+            <div class=content-card>
               {% if d.cur_date.day == cur_day and d.cur_date.month == cur_month and d.cur_date.year == cur_year %}
                 <div class=current-day>
               {% elif d.cur_date.month == month.month_num %}

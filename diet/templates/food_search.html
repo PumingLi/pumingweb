@@ -1,0 +1,15 @@
+
+
+<div class="row">
+  {% for food in response %}
+  <div class="col-md-4">
+    <div style="color: black;padding:10px;border:2px solid grey;border-radius:5px;margin-bottom:20px;">
+      <h4>{{food.fields.item_name}}</h4>
+      <p style="font-size:small;">Brand: {{food.fields.brand_name}}</p>
+      <hr>
+      <p>Calories: {{food.fields.nf_calories}}<br>Carbs: {{food.fields.nf_total_carbohydrate}}<br>Protein: {{food.fields.nf_protein}}<br>Fat: {{food.fields.nf_total_fat}}</p>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
