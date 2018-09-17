@@ -102,10 +102,11 @@ def day_view(request, year, month, day):
                'food_form': FoodForm(),
                'exercise_form': ExerciseForm(),
                'search_form': SearchForm(),
-               'recent': FoodItem.objects.all().order_by('-id')[:3]}
+               'pastel_array': pastel_array[::-1],
+               'enumerate_items': range(0, len(day_items)),
+               'daily_p': DAILY_SCALED}
 
     return render(request, 'day_details.html', context)
-
 
 
 def add_food(request, year_a, month_a, day_a, slug):
