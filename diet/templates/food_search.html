@@ -4,7 +4,7 @@
   <div class="row">
     {% for food in foods %}
       <div class="col-md-4">
-        <a href="{% url 'add_food_api' slug food.item_name food.brand_name food.nf_calories food.nf_total_carbohydrate food.nf_protein food.nf_total_fat meal%}">
+        <a href="{% url 'add_food_api' slug food.urlsafe_name food.urlsafe_brand food.nf_calories food.nf_total_carbohydrate food.nf_protein food.nf_total_fat meal%}">
         <div style="color: black;padding:10px;border:2px solid grey;border-radius:5px;margin-bottom:10px;">
           <h4>{{food.item_name}}</h4>
           <small style="color:grey;">Brand: {{food.brand_name}}</small>

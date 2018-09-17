@@ -80,10 +80,10 @@ def day_view(request, year, month, day):
         protein_array.append([item.name, item.protein])
         fat_array.append([item.name, item.fat])
 
-    calories_data = json.dumps({'calories_data': calories_array}).replace("'", "")
-    carbs_data = json.dumps({'carbs_data': carbs_array}).replace("'", "")
-    protein_data = json.dumps({'protein_data': protein_array}).replace("'", "")
-    fat_data = json.dumps({'fat_data': fat_array}).replace("'", "")
+    calories_data = json.dumps({'calories_data': calories_array}).replace('\\', '\\\\').replace("'", "\\'")
+    carbs_data = json.dumps({'carbs_data': carbs_array}).replace('\\', '\\\\').replace("'", "\\'")
+    protein_data = json.dumps({'protein_data': protein_array}).replace('\\', '\\\\').replace("'", "\\'")
+    fat_data = json.dumps({'fat_data': fat_array}).replace('\\', '\\\\').replace("'", "\\'")
 
 
     context = {'day': cur_day,
@@ -160,6 +160,9 @@ def food_search(request, slug, query, meal):
                         f['fields'][k] = 0
                     elif type(f['fields'][k]) is float:
                         f['fields'][k] = int(f['fields'][k])
+                f['fields']['urlsafe_name'] = f['fields']['item_name'].replace("/", "%2F")
+                f['fields']['urlsafe_brand'] = f['fields']['brand_name'].replace("/", "%2F")
+
                 foods.append(f['fields'])
             error = 0
         except KeyError:
@@ -185,7 +188,7 @@ def add_food_api(request, slug, name, brand, calories, carbs, protein, fat, meal
     cur_day.save()
 
     item = FoodItem(day=cur_day,
-                    name="{} ({})".format(name, brand),
+                    name="{} ({})".format(name.replace("%2F", "/"), brand.replace("%2F", "/")),
                     type=meal,
                     calories=calories,
                     carbs=carbs,

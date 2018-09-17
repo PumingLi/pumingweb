@@ -117,7 +117,7 @@
       <tbody>
         {% for item in day_items %}
         <tr>
-          <th scope="row">{{ item.name }}</th>
+          <th scope="row"><small>{{ item.name }}</small></th>
           <td>{{ item.type }}</td>
           <td>{{ item.calories }}</td>
           <td>{{ item.protein }}</td>
@@ -150,7 +150,7 @@
     <!-- Modal -->
     <div class="modal fade add-exercise" tabindex="-1" role="dialog" aria-labelledby="exerciseModal" aria-hidden="true">
       <div class="modal-dialog modal-lg">
-        <form action="{% url 'add_exercise' day.cur_date.year day.month.month_num day.cur_date.day day.day_slug%}" method="post">
+        <form action="{% url 'add_exercise' day.cur_date.year day.month.month_num day.cur_date.day day.day_slug%}" method="post" autocomplete="off">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">New Exercise</h5>
@@ -159,7 +159,31 @@
             </button>
           </div>
           <div class="modal-body">
-
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="id_exercise_name">Exercise Name</label>
+              {% render_field exercise_form.exercise_name class+="form-control"|append_attr:"readonly:readonly" placeholder="Bench Press" %}
+            </div>
+            <div class="form-group">
+              <label for="id_exercise_sets">Number of Sets</label>
+              {% render_field exercise_form.exercise_sets class+="form-control"|append_attr:"readonly:readonly" placeholder="4" %}
+            </div>
+            <div class="form-group">
+              <label for="id_exercise_reps">Number of Reps</label>
+              {% render_field exercise_form.exercise_reps class+="form-control"|append_attr:"readonly:readonly" placeholder="8" %}
+            </div>
+            <div class="form-group">
+              <label for="id_exercise_weight">Weight</label>
+              {% render_field exercise_form.exercise_weight class+="form-control"|append_attr:"readonly:readonly" placeholder="135" %}
+            </div>
+            <div class="form-group">
+              <label for="id_exercise_time">Time (Minutes)</label>
+              {% render_field exercise_form.exercise_time class+="form-control"|append_attr:"readonly:readonly" placeholder="20" %}
+            </div>
+            <div class="form-group">
+              <label for="id_exercise_type">Type</label>
+              {% render_field exercise_form.exercise_type class+="custom-select" %}
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -176,6 +200,8 @@
   {% if push_exercise|length == 0 and pull_exercise|length == 0 and legs_exercise|length == 0 and cardio_exercise|length == 0 %}
     <br>
     <h3 style="text-align:center;color:lightgrey;"> No Exercises Added Today </h3>
+    <br>
+    <br>
   {% endif %}
 
   <div class="row">
@@ -297,7 +323,7 @@ document.getElementById("search-button").addEventListener("click", function(even
     var query = $('#search-value').val();
     var meal = $('#select-meal').val();
 
-    var dest = "/diet/food-search/" + slug + '/' + query + '/' + meal;
+    var dest = "/diet/food-search/" + slug + '/' + String(query) + '/' + meal;
     $.ajax({
       url: dest,
       success: function(data) {
