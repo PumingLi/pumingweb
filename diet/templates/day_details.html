@@ -75,7 +75,7 @@
         <p style="text-align:center;"> {{day.fat}}/{% widthratio daily_p.FAT 1 100 %} | {% widthratio day.fat daily_p.FAT 1 %}%</p>
         <div class="progress">
           {% for f in day_items %}
-            <div class="progress-bar" role="progressbar" style="width: {% widthratio f.fat daily_p.FAT 1 %}%; background-color:{{ pastel_array|index:forloop.counter0 }};" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"><span style="color:black;"></span>{{ f.fat }}</div>
+            <div class="progress-bar" role="progressbar" style="width: {% widthratio f.fat daily_p.FAT 1 %}%; background-color:{{ pastel_array|index:forloop.counter0 }};" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"><span style="color:black;"></span></div>
           {% endfor %}
         </div>
       </div>
