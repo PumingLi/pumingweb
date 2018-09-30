@@ -17,7 +17,6 @@
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <div style="height:100%;overflow-y:auto;max-width:100%;overflow-x:hidden;">
 
       {% for review in all_reviews %}
 
@@ -54,7 +53,6 @@
       <img src="{{ MEDIA_URL }}/{{ review.images }}" alt="food_picture" style="width:25%;">
 
       {% endfor %}
-    </div>
 
 
     </div>
@@ -62,5 +60,5 @@
 
   </div>
 </div>
-
+<br>
 {% endblock %}
