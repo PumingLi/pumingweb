@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['localhost',
 
 INSTALLED_APPS = [
     'application.apps.ApplicationConfig',
+    'blog.apps.BlogConfig',
     'diet.apps.DietConfig',
     'fitness.apps.FitnessConfig',
     'about.apps.AboutConfig',
@@ -71,6 +72,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                'django.template.context_processors.media',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -130,8 +132,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
 ]

@@ -107,10 +107,10 @@
             <p>Type into search bar, select which meal, and click on the item that matches your search.</p>
             <div class="form-inline" style="width:100%">
               <input type="text" class="form-control" id="search-value" placeholder="Search Food..." style="width:85%;">
-              <button id="search-button" class="btn btn-primary" type="button" name="button" style="width:15%;background-color:#33001a;color:white;">Search</button>
+              <button id="search-button" class="btn btn-primary" type="submit" name="button" style="width:15%;background-color:#33001a;color:white;">Search</button>
             </div>
             <hr>
-            <div id="cur_time" style="height:50%;overflow-y:auto;max-width:100%;overflow-x:hidden;">
+            <div id="food_items" style="height:50%;overflow-y:auto;max-width:100%;overflow-x:hidden;">
               <p style="text-align:center;font-size:30px;margin-top:25%;color:lightgrey">Search Food To Add</p>
             </div>
           </div>
@@ -352,7 +352,7 @@ document.getElementById("search-button").addEventListener("click", function(even
     $.ajax({
       url: dest,
       success: function(data) {
-      $('#cur_time').html(data);
+      $('#food_items').html(data);
       }
     });
 });

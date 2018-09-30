@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog{% endblock %}
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+  <br>
+  <div id="header">
+    <h1>Food of Urbana-Champaign</h1>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div style="height:100%;overflow-y:auto;max-width:100%;overflow-x:hidden;">
+
+      {% for review in all_reviews %}
+
+      <hr>
+      <h2>{{review.name}} at {{review.resturant}}</h2>
+      <h5 style="color:grey;">Location: {{review.resturant}} | Date: {{review.date}}</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Rating</h5>
+          <div class="taste">
+            <p>Taste: {{review.taste_rating}}/10</p>
+          </div>
+          <div class="health">
+            <p>Health: {{review.health_rating}}/10</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5>Nutrients</h5>
+          <div class="row">
+            <div class="col-md-6">
+              <p>Calories: {{review.calories}}</p>
+              <p>Protein: {{review.protein}}</p>
+            </div>
+            <div class="col-md-6">
+              <p>Carbs: {{review.carbs}}</p>
+              <p>Fat: {{review.fat}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p style="text-align:justify;text-justify:inter-word;">{{review.review}}<p>
+      <h5>Pictures</h5>
+      <img src="{{ MEDIA_URL }}/{{ review.images }}" alt="food_picture" style="width:25%;">
+
+      {% endfor %}
+    </div>
+
+
+    </div>
+    <div class="col-md-3"></div>
+
+  </div>
+</div>
+
+{% endblock %}

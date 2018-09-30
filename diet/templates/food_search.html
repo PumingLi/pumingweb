@@ -9,7 +9,14 @@
           <h4>{{food.item_name}}</h4>
           <small style="color:grey;">Brand: {{food.brand_name}}</small>
           <hr>
-          <small>Calories: {{food.nf_calories}}<br>Carbs: {{food.nf_total_carbohydrate}}<br>Protein: {{food.nf_protein}}<br>Fat: {{food.nf_total_fat}}</small>
+          <div class="row">
+            <div class="col-md-6">
+              <small>Calories: {{food.nf_calories}}<br>Carbs: {{food.nf_total_carbohydrate}}</small>
+            </div>
+            <div class="col-md-6">
+              <small>Protein: {{food.nf_protein}}<br>Fat: {{food.nf_total_fat}}</small>
+            </div>
+          </div>
         </div>
         </a>
       </div>
