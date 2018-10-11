@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 
 from .models import NutritionDay, NutritionMonth, FoodItem, ExerciseItem
-from .helper import get_month, get_next_month, get_prev_month, get_day_offset
+from .helper import get_food_list
 from .constants import  MONTH_MAP, WEEK_MAP, PASTEL_COLORS, DAILY_SERVINGS
 from .forms import FoodForm, ExerciseForm, SearchForm
 from time import gmtime, strftime
 from datetime import datetime, date
-import requests
-import json
+import calendar, json
 
 DAILY_SCALED = {k:(DAILY_SERVINGS[k])/100 for k in DAILY_SERVINGS}
 
@@ -15,20 +14,31 @@ DAILY_SCALED = {k:(DAILY_SERVINGS[k])/100 for k in DAILY_SERVINGS}
 def month_current(request):
 
     today = datetime.now().timetuple()
-    cur_month, month_iter = get_month(today.tm_mon, today.tm_year)
 
-    prev_t = get_prev_month(today.tm_year, today.tm_mon)
-    next_t = get_next_month(today.tm_year, today.tm_mon)
+    _month_slug = "%d-%d" % (today.tm_year, today.tm_mon)
+    if not NutritionMonth.objects.filter(month_slug=_month_slug):
+        cur_month = NutritionMonth(year=today.tm_year,
+                                   month=MONTH_MAP[month-1],
+                                   month_num=today.tm_mon,
+                                   month_slug=_month_slug)
+        cur_month.save()
+    else:
+        cur_month = NutritionMonth.objects.get(month_slug=_month_slug)
+
+    prev_year, prev_month = cur_month.get_month_offset(-1)
+    next_year, next_month = cur_month.get_month_offset(1)
+
+    cur_month.fill_month()
 
     context = {'cur_month': today.tm_mon,
                'cur_year': today.tm_year,
                'cur_day': today.tm_mday,
                'month': cur_month,
-               'month_iter': month_iter,
-               'prev_year': prev_t[0],
-               'prev_month': prev_t[1],
-               'next_year': next_t[0],
-               'next_month': next_t[1],
+               'month_iter': cur_month.get_month_iter(),
+               'prev_year': prev_year,
+               'prev_month': prev_month,
+               'next_year': next_year,
+               'next_month': next_month,
                'daily_p': DAILY_SCALED}
 
 
@@ -38,21 +48,30 @@ def month_current(request):
 def month_view(request, year, month):
 
     today = datetime.now().timetuple()
-    cur_month, month_iter = get_month(month, year)
 
-    prev_t = get_prev_month(year, month)
-    next_t = get_next_month(year, month)
+    _month_slug = "%d-%d" % (year, month)
+    if not NutritionMonth.objects.filter(month_slug=_month_slug):
+        cur_month = NutritionMonth(year=year,
+                                   month=MONTH_MAP[month-1],
+                                   month_num=month,
+                                   month_slug=_month_slug)
+        cur_month.save()
+    else:
+        cur_month = NutritionMonth.objects.get(month_slug=_month_slug)
+
+    prev_year, prev_month = cur_month.get_month_offset(-1)
+    next_year, next_month = cur_month.get_month_offset(1)
 
 
     context = {'cur_month': today.tm_mon,
                'cur_year': today.tm_year,
                'cur_day': today.tm_mday,
                'month': cur_month,
-               'month_iter': month_iter,
-               'prev_year': prev_t[0],
-               'prev_month': prev_t[1],
-               'next_year': next_t[0],
-               'next_month': next_t[1],
+               'month_iter': cur_month.get_month_iter(),
+               'prev_year': prev_year,
+               'prev_month': prev_month,
+               'next_year': next_year,
+               'next_month': next_month,
                'daily_p': DAILY_SCALED}
 
     return render(request, 'diet.html', context)
@@ -62,7 +81,8 @@ def day_view(request, year, month, day):
 
     _slug = "%d-%d-%d" % (year, month, day)
     cur_day = NutritionDay.objects.get(day_slug=_slug)
-    day_items = FoodItem.objects.filter(day=cur_day)
+    day_items = cur_day.fooditem_set.all()
+    day_exercises = cur_day.exerciseitem_set.all()
 
     pastel_len = len(PASTEL_COLORS)
     pastel_array = list(PASTEL_COLORS.values())
@@ -87,18 +107,18 @@ def day_view(request, year, month, day):
 
 
     context = {'day': cur_day,
-               'prev_day': get_day_offset(year, month, day, -1),
-               'next_day': get_day_offset(year, month, day, 1),
+               'prev_day': cur_day.get_day_offset(-1),
+               'next_day': cur_day.get_day_offset(1),
                'calories_data': calories_data,
                'carbs_data': carbs_data,
                'protein_data': protein_data,
                'fat_data': fat_data,
                'pastel_colors': pastel_colors,
                'day_items': day_items,
-               'push_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Push"),
-               'pull_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Pull"),
-               'legs_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Legs"),
-               'cardio_exercise': ExerciseItem.objects.filter(day=cur_day).filter(type="Cardio"),
+               'push_exercise': day_exercises.filter(type="Push"),
+               'pull_exercise': day_exercises.filter(type="Pull"),
+               'legs_exercise': day_exercises.filter(type="Legs"),
+               'cardio_exercise': day_exercises.filter(type="Cardio"),
                'food_form': FoodForm(),
                'exercise_form': ExerciseForm(),
                'search_form': SearchForm(),
@@ -148,29 +168,7 @@ def add_exercise(request, year_a, month_a, day_a, slug):
     return redirect('day_view', year=year_a, month=month_a, day=day_a)
 
 def food_search(request, slug, query, meal):
-    foods = []
-
-    if query != "":
-        url = "https://api.nutritionix.com/v1_1/search/{0}?results=0%3A50&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_total_carbohydrate%2Cnf_protein&appId=d8a86782&appKey=9b13b3a57bad7df2acda43096b3133ce".format(query)
-        r = requests.get(url)
-        response = json.loads(r.content)
-        try:
-            for f in response["hits"]:
-                for k in f['fields'].keys():
-                    if f['fields'][k] is None:
-                        f['fields'][k] = 0
-                    elif type(f['fields'][k]) is float:
-                        f['fields'][k] = int(f['fields'][k])
-                f['fields']['urlsafe_name'] = f['fields']['item_name'].replace("/", "%2F")
-                f['fields']['urlsafe_brand'] = f['fields']['brand_name'].replace("/", "%2F")
-
-                foods.append(f['fields'])
-            error = 0
-        except KeyError:
-            error = response
-    else:
-        error = 0
-
+    foods, error = get_food_list(query)
     context = {'query': query,
                'foods': foods,
                'error': error,
@@ -182,19 +180,5 @@ def food_search(request, slug, query, meal):
 def add_food_api(request, slug, name, brand, calories, carbs, protein, fat, meal):
 
     cur_day = NutritionDay.objects.get(day_slug=slug)
-    cur_day.calories += calories
-    cur_day.carbs += carbs
-    cur_day.protein += protein
-    cur_day.fat += fat
-    cur_day.save()
-
-    item = FoodItem(day=cur_day,
-                    name="{} ({})".format(name.replace("%2F", "/"), brand.replace("%2F", "/")),
-                    type=meal,
-                    calories=calories,
-                    carbs=carbs,
-                    protein=protein,
-                    fat=fat)
-    item.save()
-
+    cur_day.add_new_food_to_day(name, brand, calories, carbs, protein, fat, meal)
     return redirect('day_view', year=cur_day.cur_date.year, month=cur_day.cur_date.month, day=cur_day.cur_date.day)

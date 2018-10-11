@@ -3,6 +3,7 @@ WEEK_MAP = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", 
 MEALS = ["Breakfast", "Lunch", "Dinner", "Snack", "Other"]
 EXERCISES = ["Push", "Pull", "Legs", "Cardio"]
 
+FOODS = [""]
 
 PASTEL_COLORS = {
 "Snow": "#fffafa",
@@ -61,3 +62,17 @@ DAILY_SERVINGS = {
 'PROTEIN': 150,
 'CARBS': 180,
 'FAT': 120}
+
+QUERY_URL = "https://api.nutritionix.com/v1_1/search/{0}?results=0%3A50&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_total_carbohydrate%2Cnf_protein&appId=d8a86782&appKey=9b13b3a57bad7df2acda43096b3133ce"
+
+RAND_FOODS = ['cheesies', 'salad', 'milk', 'pineapple', 'apple', 'grapes', 'crackers', 'KD', 'chips', 'chicken', 'orange juice', 'popcorn', 'pop tarts', 'pizza pops', 'pogos', 'sandwhich', 'banana', 'cucumber', 'peppers',
+'smoothie', 'ice cream', 'pie', 'rice', 'ichiban', 'granola bar', 'cereal', 'jello', 'pudding', 'toast', 'chili', 'sea food', 'pickle', 'salami', 'orange', 'chocolate', 'peanuts', 'coffee/tea',
+'pop/soda', 'corn', 'ice cream', 'cookies', 'donut', 'fruit leather', 'pretzels', 'olives', 'lemonaid', 'kool aid', 'home made slush', 'spaghetti', 'hamburger helper', 'tuna', 'carrots', 'canned fruit',
+'candy', 'cake', 'sushi', 'melon', 'watermelon', 'tomato', 'cucumber', 'salted and sliced cucumbers', 'miso soup', 'ramen', 'tonkatsu', 'angel hair', 'spaghetti', 'chocolate', 'cream puff', 'eclair',
+'torte', 'bread', 'chicken', 'beef', 'pork', 'spring rolls', 'azuki', 'fish', 'sashimi', 'saba', 'berries', 'guava', 'ume', 'crackers', 'umeboshi', 'candy', 'takoyaki', 'Chicken Quesadillas',
+'Chicken Wings', 'Taquitos', 'Tornadoes', 'Enchiladas', 'Empinadas', 'Burritos', 'Pizza', 'Chicken patty', 'Burger', 'Fries', 'Salad', 'Bananas', 'Apples', 'Oranges', 'Mandarin oranges', 'Spaghetti',
+'Garlic bread', 'Lasagna', 'Chicken nuggets', 'Sub', 'Turkey sandwich', 'Soup', 'Green beans', 'Peas', 'Carrots', 'Yogurt', 'Bagel w/cream cheese (or your preferred topping)', 'Ice cream',
+'Cottage cheese', 'Chicken', 'Steak', 'Mashed potatoes', 'Fried okra', 'Macaroni and cheese', 'Broccoli', 'Cauliflower', 'Lobster', 'Crab', 'Oysters', 'Fried clams', 'Shrimp', 'Tuna',
+'Fish sticks/patties', 'Popcorn', 'Peanuts', 'Rice', 'Cheetoes', 'Mike and Ikes', 'Sweet and Sour Chicken', 'Pecan Cookies', 'Snickerdoodles', 'Angel Food Cake', 'Pizza', 'Spaghetti',
+'Coke', 'Jelly Beans', 'BBQ', 'Ribs', 'Chocolate cake', 'Cotton Candy (pink, of course! he he)', 'Quesadilla', 'Hash Brown', 'Cinnamon Roll', 'Sour patch kids', 'pizza', 'spaghetti',
+'ravioli', 'chicken', 'Quesadilla', 'burger', 'fries', 'taco', 'salad', 'sandwich', 'chicken nuggets', 'ramen noodles', 'chicken alfredo', 'chips']
