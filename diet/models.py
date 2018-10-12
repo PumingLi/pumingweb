@@ -23,7 +23,7 @@ class NutritionMonth(models.Model):
             years_delta -= 1
         elif self.month_num + delta > 12:
             years_delta += 1
-            
+
         year = self.year + years_delta
         _month_slug = "%d-%d" % (year, month)
         if not NutritionMonth.objects.filter(month_slug=_month_slug):
@@ -165,10 +165,10 @@ class FoodItem(models.Model):
 
     def copy_to_date(self, date):
 
-        date.calories += calories
-        date.carbs += carbs
-        date.protein += protein
-        date.fat += fat
+        date.calories += self.calories
+        date.carbs += self.carbs
+        date.protein += self.protein
+        date.fat += self.fat
         date.save()
 
         new_food = FoodItem(day=date,

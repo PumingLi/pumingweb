@@ -1,7 +1,47 @@
 #header {
 
-  text-align: center;
-  font-family: Galada;
+  /* text-align: center; */
+  /* font-family: Galada; */
   font-size: 40px;
 
+}
+
+.post-tab {
+  height:80px;
+  color: black;
+}
+
+.post-tab:hover {
+  color: rgba(51, 0, 26, 0.5);
+}
+
+.post-link:hover {
+  text-decoration: none;
+}
+
+.body {
+  height: 100%;
+}
+
+.content-post {
+  width: 100%
+  color: black;
+  border:2px solid grey;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.date-col {
+  height:100%;
+  border-right: 2px solid grey;
+  padding: 5px;
+  text-align: center;
+  margin-right:0px;
+}
+
+.rating-col {
+  height:100%;
+  border-left: 2px solid grey;
+  padding: 5px;
+  text-align: center;
 }

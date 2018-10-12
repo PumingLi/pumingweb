@@ -25,6 +25,8 @@ def month_current(request):
     else:
         cur_month = NutritionMonth.objects.get(month_slug=_month_slug)
 
+    pastel_array = list(PASTEL_COLORS.values())
+
     prev_year, prev_month = cur_month.get_month_offset(-1)
     next_year, next_month = cur_month.get_month_offset(1)
 
@@ -39,6 +41,7 @@ def month_current(request):
                'prev_month': prev_month,
                'next_year': next_year,
                'next_month': next_month,
+               'pastel_array': pastel_array[::-1],
                'daily_p': DAILY_SCALED}
 
 
@@ -59,6 +62,8 @@ def month_view(request, year, month):
     else:
         cur_month = NutritionMonth.objects.get(month_slug=_month_slug)
 
+    pastel_array = list(PASTEL_COLORS.values())
+
     prev_year, prev_month = cur_month.get_month_offset(-1)
     next_year, next_month = cur_month.get_month_offset(1)
 
@@ -72,6 +77,7 @@ def month_view(request, year, month):
                'prev_month': prev_month,
                'next_year': next_year,
                'next_month': next_month,
+               'pastel_array': pastel_array[::-1],
                'daily_p': DAILY_SCALED}
 
     return render(request, 'diet.html', context)

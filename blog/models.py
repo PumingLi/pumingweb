@@ -15,3 +15,19 @@ class Review(models.Model):
     fat = models.IntegerField(default=0)
     review = models.TextField()
     images = models.FileField(null=True, default=None, upload_to='blog/')
+    score = models.IntegerField(default=0)
+
+    def __str__(self):
+
+        return "%s %s" % (self.name, self.resturant)
+
+class Comment(models.Model):
+
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    name = models.CharField(default="Anonymous", max_length=100)
+    comment = models.TextField()
+    score = models.IntegerField(default=0)
+
+    def __str__(self):
+
+        return "%s" % (self.name)
