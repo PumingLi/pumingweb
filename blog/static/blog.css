@@ -6,6 +6,15 @@
 
 }
 
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  padding: 0px;
+  margin: 0px;
+}
+
 .post-tab {
   height:80px;
   color: black;
@@ -44,4 +53,27 @@
   border-left: 2px solid grey;
   padding: 5px;
   text-align: center;
+}
+
+.sub-head {
+  font-size: 45px;
+  margin: 0px;
+  color:black;
+  margin-bottom: 5%;
+}
+
+.sub-head:hover {
+  color: rgba(51, 0, 26, 0.5);
+}
+
+.arrow-to-post {
+  position:absolute;
+  font-size: 20px;
+  color:black;
+  bottom:5%;
+  right:10%;
+}
+
+.arrow-to-post:hover {
+  color: rgba(51, 0, 26, 0.5);
 }

@@ -6,7 +6,8 @@ from datetime import date
 
 def blog(request):
 
-    context = {'all_reviews': list(Review.objects.all())[::-1]}
+    reviews = list(Review.objects.all())[::-1]
+    context = {'all_reviews': reviews[1:], 'latest': reviews[0]}
 
     return render(request, 'blog.html', context=context)
 

@@ -11,17 +11,27 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <br>
-      <h1 id="header">Food of Urbana-Champaign</h1>
-      <div class="row">
-        <div class="col-md-7">
-          {# <img src="{% static 'blog/green_street.jpg' %}" alt="green street" style="width:100%;"> #}
-        </div>
-        <div class="col-md-5">
+      <h1 style="font-family:Galada;">Food of Urbana Champaign</h1>
+      <br>
+        <div class="row-eq-height" style="color:black;">
+          <div class="col-md-6" style="padding:0px;">
+            <img src="{{ MEDIA_URL }}/{{ latest.images }}" alt="latest food" style="width:100%;height:auto;">
+          </div>
+          <div class="col-md-6" style="position:relative;">
+            <h4 style="margin-top:2%;color:gray;;">Latest Review</h4>
+            <a href="{% url 'post' latest.id %}" class="post-link">
 
-          {# <h1>Explore the culinary offerings of U of I</h1> #}
+              <p class="sub-head">{{latest.name}} at {{latest.resturant}}</p>
+              <small style="color:grey;">{{ latest.date }}</small>
+              <div class="arrow-to-post">
+                <p>Details <span>
+                  <img src="{% static 'diet/right-arrow.png' %}" alt="arrow" style="height:20px;">
+                </span> </p>
+              </div>
+            </a>
+          </div>
         </div>
 
-      </div>
       <br>
       <h2>Recent Updates</h2>
       <hr>
@@ -29,11 +39,11 @@
       <a href="{% url 'post' review.id %}" class="post-link">
         <div class="post-tab">
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-11">
               <p>{{ review.date }}</p>
               <h2>{{review.name}} at {{review.resturant}}</h2>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-1">
               <img src="{{ MEDIA_URL }}/{{ review.images }}" alt="food_picture" style="height:100%;float:right;">
             </div>
           </div>
@@ -45,6 +55,7 @@
     </div>
     <div class="col-md-3"></div>
 
-  </div>
+  </div>]
+
 <br>
 {% endblock %}
