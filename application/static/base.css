@@ -4,7 +4,6 @@ body {
 }
 
 /* TOP BAR */
-
 .nav-bar-table {
     list-style-type: none;
     margin: 0;
@@ -63,7 +62,7 @@ body {
 
 
 .nav-bar {
-  
+
   margin: 0;
   padding: 0;
   height: 70px;
@@ -115,4 +114,24 @@ body {
   font-size: small;
   color: #993333;
   text-decoration: none;
+}
+
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  padding: 0px;
+  margin: 0px;
+}
+
+.general-link {
+  color: black;
+}
+
+.general-link:hover {
+  text-decoration: none;
+  color: rgba(51, 0, 26, 0.5);
+
 }

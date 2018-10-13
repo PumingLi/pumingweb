@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+{% endblock %}
 
+{% block content %}
 <div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-6">
@@ -32,33 +35,90 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <div style="height:50%">
-      <br>
-      <h1>Home of Puming's Website</h1>
-      <hr>
-      <p style="text-align:justify;text-justify:inter-word;">
-        Yeetcode.com is a demonstration of a few of the technologies I have worked with in the past.
-        This website includes a diet calander that allows me to track my macronutrients calorie intake.
-        Additionally, There is a food blog <span style="color:lightgrey;">(Under Development)</span> of resturants on campus at UIUC. Finally, there is a profile
-        page <span style="color:lightgrey;">(Under Development)</span> with some of my past experience, previous work, and other interests.
-      </p>
-      <br>
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-2">
-          <img class="d-block w-100" style="align:center;" src="{% static 'home/calendar-icon.png' %}" alt="Calender Icon">
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-          <img class="d-block w-100" style="align:center;" src="{% static 'home/blog-icon.png' %}" alt="Blog Icon">
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-          <img class="d-block w-100" style="align:center;" src="{% static 'home/contact-icon.png' %}" alt="Contact Icon">
-        </div>
-        <div class="col-md-2"></div>
+
+    <br>
+    <h1>Home of Puming's Website</h1>
+    <hr>
+    <p style="text-align:justify;text-justify:inter-word;">
+      Yeetcode.com is a demonstration of a few of the technologies I have worked with in the past.
+      This website currently includes a diet calander, a food blog, and a profile page with other features currently in development.
+      I am continuously adding features, fixing bugs, and improving the UI. Work on this website will be somewhat irregular due to the time I need to spend
+      on schoolwork and other responsibilities
+    </p>
+    <br>
+    <div class="row-eq-height">
+
+      <div class="col-md-4" style="position:relative;padding-left:0px;border-right:1px solid rgba(0,0,0,.1);">
+        <a class="general-link" href="{% url 'blog' %}">
+          <div class="row" style="position:relative;">
+            <div class="col-6"><h2>Blog</h2></div>
+            <div class="col-6"><img src="{% static 'home/blog-icon.png' %}" alt="arrow" style="height:30px;position:absolute;top:4px;right:10px"></div>
+          </div>
+          <p style="text-align:justify;text-justify:inter-word;">
+            My Blog is a place where I share my experiences of dishes at the local resturants around my campus at UIUC.
+            I consider both the taste and health and give an honest review of the strengths and flaws of what I ate.
+            <br>
+            <br>
+            <br>
+          </p>
+          <div class="arrow-to-tab">
+            <p>Go to blog <span>
+              <img src="{% static 'home/long-right-arrow.png' %}" alt="arrow" style="height:16px;">
+            </span> </p>
+          </div>
+        </a>
       </div>
+
+      <div class="col-md-4" style="position:relative;">
+        <a class="general-link" href="{% url 'diet_month_current' %}">
+          <div class="row" style="position:relative;">
+            <div class="col-6"><h2>Diet</h2></div>
+            <div class="col-6"><img src="{% static 'home/calendar-icon.png' %}" alt="arrow" style="height:30px;position:absolute;top:4px;right:10px"></div>
+          </div>
+          <p style="text-align:justify;text-justify:inter-word;">
+            The Diet tab is a review of the food I've eaten from day to day. I keep track of any foods I've eaten and visualize their
+            individual calories, carbs, protein, and fat values in graphs and tables.
+            <br>
+            <br>
+            <br>
+          </p>
+          <div class="arrow-to-tab">
+            <p>Go to diet <span>
+              <img src="{% static 'home/long-right-arrow.png' %}" alt="arrow" style="height:16px;">
+            </span> </p>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4" style="position:relative;margin:right;border-left:1px solid rgba(0,0,0,.1);">
+        <a class="general-link" href="{% url 'about' %}">
+          <div class="row" style="position:relative;">
+            <div class="col-6"><h2>About</h2></div>
+            <div class="col-6"><img src="{% static 'home/contact-icon.png' %}" alt="arrow" style="height:30px;position:absolute;top:4px;right:10px"></div>
+          </div>
+          <p style="text-align:justify;text-justify:inter-word;">
+            In this section I have a comprehensive review of myself and any past experiences or work I've done. I include any languages or technologies I have
+            worked with as well as links to my contact information.
+            <br>
+            <br>
+            <br>
+          </p>
+          <div class="arrow-to-tab">
+            <p>Go to about <span>
+              <img src="{% static 'home/long-right-arrow.png' %}" alt="arrow" style="height:16px;">
+            </span> </p>
+          </div>
+        </a>
+      </div>
+
     </div>
+    <br>
+    <div style="height:20%;">
+
+    </div>
+
   </div>
+
   <div class="col-md-3"></div>
+</div>
 {% endblock %}
