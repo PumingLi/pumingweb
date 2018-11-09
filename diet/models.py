@@ -7,9 +7,9 @@ import calendar, math, random
 class NutritionMonth(models.Model):
 
     year = models.IntegerField()
-    month = models.TextField(default="January", choices=[(m,m) for m in MONTH_MAP])
+    month = models.CharField(default="January", choices=[(m,m) for m in MONTH_MAP], max_length=100)
     month_num = models.IntegerField(default=1, choices=[(d, d) for d in range(1, 13)])
-    month_slug = models.TextField(default="00-00")
+    month_slug = models.CharField(default="00-00", max_length=100)
 
     def __str__(self):
         return 'NutritionMonth: %s' % (self.month_slug)
@@ -47,7 +47,20 @@ class NutritionMonth(models.Model):
             if NutritionDay.objects.filter(day_slug=_slug):
                 cur_day = NutritionDay.objects.get(day_slug=_slug)
             else:
-                cur_day = NutritionDay(month=self,
+                if self.month_num == _day_t.tm_mon:
+                    cur_month = self
+                else:
+                    _month_slug = "%d-%d" % (_day_t.tm_year, _day_t.tm_mon)
+                    if NutritionMonth.objects.filter(month_slug=_month_slug):
+                        cur_month = NutritionMonth.objects.get(month_slug=_month_slug)
+                    else:
+                        cur_month = NutritionMonth(year=_day_t.tm_year,
+                                                   month=MONTH_MAP[_day_t.tm_mon - 1],
+                                                   month_num=_day_t.tm_mon,
+                                                   month_slug=_month_slug)
+                    cur_month.save()
+
+                cur_day = NutritionDay(month=cur_month,
                                        cur_date=date(_day_t.tm_year, _day_t.tm_mon, _day_t.tm_mday),
                                        weekday=WEEK_MAP[count],
                                        day_slug=_slug)
@@ -69,6 +82,7 @@ class NutritionMonth(models.Model):
         past_exercise = list(ExerciseItem.objects.all())
         month_days = self.nutritionday_set.filter(cur_date__month=self.month_num)
         for d in range(1, date.today().day + 1):
+            print(d)
             day = month_days.get(cur_date__day=d)
             if not day.fooditem_set.all():
 
@@ -82,14 +96,14 @@ class NutritionMonth(models.Model):
 class NutritionDay(models.Model):
 
     month = models.ForeignKey(NutritionMonth, on_delete=models.CASCADE)
-    day_slug = models.TextField(default="00-00-00")
-    weekday = models.TextField(default="Sunday", choices=[(w,w) for w in WEEK_MAP])
+    day_slug = models.CharField(default="00-00-00", max_length=100)
+    weekday = models.CharField(default="Sunday", choices=[(w,w) for w in WEEK_MAP], max_length=100)
     cur_date = models.DateField()
-    calories = models.IntegerField(null=True)
-    carbs = models.IntegerField(null=True)
-    protein = models.IntegerField(null=True)
-    fat = models.IntegerField(null=True)
-    weight = models.IntegerField(null=True)
+    calories = models.IntegerField(default=0)
+    carbs = models.IntegerField(default=0)
+    protein = models.IntegerField(default=0)
+    fat = models.IntegerField(default=0)
+    weight = models.IntegerField(default=0)
 
     def __str__(self):
         return 'NutritionDay: %s' % (self.day_slug)
@@ -154,7 +168,7 @@ class FoodItem(models.Model):
 
     day = models.ForeignKey(NutritionDay, on_delete=models.CASCADE)
     name = models.TextField(default="N/A")
-    type = models.TextField(default="Snack", choices=[(m,m) for m in MEALS])
+    type = models.CharField(default="Snack", choices=[(m,m) for m in MEALS], max_length=100)
     calories = models.IntegerField(default=0)
     carbs = models.IntegerField(default=0)
     protein = models.IntegerField(default=0)
@@ -162,6 +176,12 @@ class FoodItem(models.Model):
 
     def __str__(self):
         return 'FoodItem: %s (%s)' % (self.name, self.day.day_slug)
+
+    def randomize_type(self):
+        random.seed(self.id)
+        self.type = random.choice(MEALS)
+        self.save()
+
 
     def copy_to_date(self, date):
 
@@ -187,8 +207,8 @@ class FoodItem(models.Model):
 class ExerciseItem(models.Model):
 
     day = models.ForeignKey(NutritionDay, on_delete=models.CASCADE)
-    name = models.TextField(default="N/A")
-    type = models.TextField(default="Push", choices=[(e,e) for e in EXERCISES])
+    name = models.CharField(default="N/A", max_length=100)
+    type = models.CharField(default="Push", choices=[(e,e) for e in EXERCISES], max_length=100)
     reps = models.IntegerField(default=0)
     sets = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)

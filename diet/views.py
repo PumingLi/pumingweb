@@ -16,27 +16,30 @@ def month_current(request):
     today = datetime.now().timetuple()
 
     _month_slug = "%d-%d" % (today.tm_year, today.tm_mon)
+    print(_month_slug)
     if not NutritionMonth.objects.filter(month_slug=_month_slug):
         cur_month = NutritionMonth(year=today.tm_year,
-                                   month=MONTH_MAP[month-1],
+                                   month=MONTH_MAP[today.tm_mon-1],
                                    month_num=today.tm_mon,
                                    month_slug=_month_slug)
         cur_month.save()
     else:
         cur_month = NutritionMonth.objects.get(month_slug=_month_slug)
 
+    month_iter = cur_month.get_month_iter()
     pastel_array = list(PASTEL_COLORS.values())
 
     prev_year, prev_month = cur_month.get_month_offset(-1)
     next_year, next_month = cur_month.get_month_offset(1)
 
+    print(cur_month.month_slug)
     cur_month.fill_month()
 
     context = {'cur_month': today.tm_mon,
                'cur_year': today.tm_year,
                'cur_day': today.tm_mday,
                'month': cur_month,
-               'month_iter': cur_month.get_month_iter(),
+               'month_iter': month_iter,
                'prev_year': prev_year,
                'prev_month': prev_month,
                'next_year': next_year,
@@ -79,6 +82,7 @@ def month_view(request, year, month):
                'next_month': next_month,
                'pastel_array': pastel_array[::-1],
                'daily_p': DAILY_SCALED}
+
 
     return render(request, 'diet.html', context)
 
