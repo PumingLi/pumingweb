@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'application.apps.ApplicationConfig',
     'blog.apps.BlogConfig',
     'diet.apps.DietConfig',
+    'projects.apps.ProjectsConfig',
+    'pos.apps.PosConfig',
     'fitness.apps.FitnessConfig',
     'about.apps.AboutConfig',
     'home.apps.HomeConfig',

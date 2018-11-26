@@ -28,4 +28,5 @@ urlpatterns =[
     path('about/', include('about.urls')),
     path('fitness/', include('fitness.urls')),
     path('diet/', include('diet.urls')),
+    path('projects/', include('projects.urls')),
 ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
