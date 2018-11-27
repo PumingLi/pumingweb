@@ -15,13 +15,13 @@
       <table style="width:100%">
         <tr>
           <td>
-            <a href="{% url 'month_view' prev_year prev_month %}" class="align-bottom" style="float:left;"><img src="{% static 'diet/left-arrow.png' %}" alt="left_arrow"></a>
+            <a href="{% url 'month_view' prev_year prev_month %}" class="transition-btn" style="float:left;"><img src="{% static 'diet/left-arrow.png' %}" alt="left_arrow"></a>
           </td>
           <td>
             <h1 style="font-family: Galada; text-align: center; font-size: 40px">{{ month.month }} {{ month.year }}</h1>
           </td>
           <td>
-            <a href="{% url 'month_view' next_year next_month %}" class="align-bottom" style="float:right;"><img src="{% static 'diet/right-arrow.png' %}" alt="right_arrow"></a>
+            <a href="{% url 'month_view' next_year next_month %}" class="transition-btn" style="float:right;"><img src="{% static 'diet/right-arrow.png' %}" alt="right_arrow"></a>
           </td>
         </tr>
       </table>
@@ -41,7 +41,7 @@
                 <div class=not-month-day>
               {% endif %}
               <p style="font-size:small;">{{ d.weekday }}</p>
-              <h1>{{ d.cur_date.day }}</h1>
+              <h1 class="day-text">{{ d.cur_date.day }}</h1>
             </div>
             <hr>
             <div class="progress" style="margin-bottom:5px;">

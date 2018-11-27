@@ -4,6 +4,7 @@
 {% load widget_tweaks %}
 
 {% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'projects.css' %}">
 {% endblock %}
 
 {% block title %}Tagger{% endblock %}
@@ -12,8 +13,31 @@
 <div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-6">
-    <br>
-    <p>TAGGER</p>
+    <table style="width:100%">
+      <tr>
+        <td>
+          <a href="#" class="project-link">
+
+            <div class="project-box">
+              <img src="{% static 'images/email-img.jpg' %}" alt="email-png" class="project-image">
+              <h2 class="project-title">Naive Bayes</h2>
+            </div>
+          </a>
+        </td>
+        <td>
+          <a href="{% url 'tagger' %}" class="project-link">
+
+            <div class="project-box">
+              <img src="{% static 'images/pos-img.jpg' %}" alt="pos-png" class="project-image">
+              <h2 class="project-title">POS Tagger</h2>
+            </div>
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    </div>
+    <div style="height:90%;"></div>
     <br>
   </div>
   <div class="col-md-3"></div>

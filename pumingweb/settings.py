@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'diet.apps.DietConfig',
     'projects.apps.ProjectsConfig',
-    'pos.apps.PosConfig',
+    'pos.apps.POSConfig',
     'fitness.apps.FitnessConfig',
     'about.apps.AboutConfig',
     'home.apps.HomeConfig',

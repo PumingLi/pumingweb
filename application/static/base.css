@@ -11,9 +11,27 @@ body {
     height: 70px;
     line-height: 70px;
     overflow: hidden;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.bottom-bar-table {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 70px;
+    line-height: 70px;
+    overflow: hidden;
 }
 
 .nav-item {
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+}
+
+
+.bottom-item {
     float: right;
     height: 70px;
     line-height: 70px;
@@ -36,6 +54,10 @@ body {
 }
 
 .nav-item:hover {
+    background-color: #1a000d;
+}
+
+.bottom-item:hover {
     background-color: #1a000d;
 }
 
@@ -135,4 +157,19 @@ body {
   text-decoration: none;
   color: rgba(51, 0, 26, 0.5);
 
+}
+.header {
+  width:100%;
+  position: relative;
+}
+.banner {
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10%;
 }

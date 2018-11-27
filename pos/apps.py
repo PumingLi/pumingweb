@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class PosConfig(AppConfig):
+class POSConfig(AppConfig):
     name = 'pos'

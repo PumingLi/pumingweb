@@ -27,13 +27,13 @@
     <br>
     <div class="row">
       <div class="col-md-2">
-        <a href="{% url 'day_view' prev_day.0 prev_day.1 prev_day.2 %}" class="align-bottom" style="float:left;"><img src="{% static 'diet/left-arrow.png' %}" alt="left_arrow"></a>
+        <a href="{% url 'day_view' prev_day.0 prev_day.1 prev_day.2 %}" class="transition-btn" style="float:left;"><img src="{% static 'diet/left-arrow.png' %}" alt="left_arrow"></a>
       </div>
       <div class="col-md-8">
         <h1 style="text-align:center;font-family:Galada;">{{ day.weekday }}, {{ day.cur_date.month }}/{{ day.cur_date.day }}/{{ day.cur_date.year }}</h1>
       </div>
       <div class="col-md-2">
-        <a href="{% url 'day_view' next_day.0 next_day.1 next_day.2 %}" class="align-bottom" style="float:right;"><img src="{% static 'diet/right-arrow.png' %}" alt="right_arrow"></a>
+        <a href="{% url 'day_view' next_day.0 next_day.1 next_day.2 %}" class="transition-btn" style="float:right;"><img src="{% static 'diet/right-arrow.png' %}" alt="right_arrow"></a>
       </div>
     </div>
     <hr>

@@ -27,18 +27,23 @@
 </head>
 
 <body>
+  <div class="header">
+    <img src="{% static 'banner.jpg' %}" alt="banner" class="banner">
+    <img src="{% static 'logo.png' %}" alt="logo" class="logo">
+  </div>
   <div class="nav-bar">
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <ul class="nav-bar-table">
-          <li class="nav-title"><a class="title-link" href="{% url 'home' %}"><h3 class="web-title"><span style="font-family: Galada;">Yeet</span>Code</h3></a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><p class="nav-text">About</p></a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'projects' %}"><p class="nav-text">Projects</p></a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'diet_month_current' %}"><p class="nav-text">Diet</p></a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}"><p class="nav-text">Blog</p></a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><p class="nav-text">Home</p></a></li>
-        </ul>
+        <table class="nav-bar-table">
+          <tr>
+            <td class="nav-item"><a class="nav-link" href="{% url 'diet_month_current' %}"><p class="nav-text">Diet</p></a></td>
+            <td class="nav-item"><a class="nav-link" href="{% url 'blog' %}"><p class="nav-text">Blog</p></a></td>
+            <td class="nav-item"><a class="nav-link" href="{% url 'home' %}"><p class="nav-text">Home</p></a></td>
+            <td class="nav-item"><a class="nav-link" href="{% url 'projects' %}"><p class="nav-text">Projects</p></a></td>
+            <td class="nav-item"><a class="nav-link" href="{% url 'about' %}"><p class="nav-text">About</p></a></td>
+          <tr>
+        </table>
       </div>
       <div class="col-md-3"></div>
     </div>
@@ -48,11 +53,11 @@
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <ul class="nav-bar-table">
+        <ul class="bottom-bar-table">
           <li class="nav-title"><a class="bottom-link" href='https://leetcode.com'>Go to actual leetcode</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/dirtydaveli/"><img src="{% static 'base/instagram.png' %}" alt="left_arrow" style="height:20px;width:auto;"></a></li>
-          <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/pumingli/"><img src="{% static 'base/linkedin.png' %}" alt="left_arrow" style="height:20px;width:auto;"></a></li>
-          <li class="nav-item"><a class="nav-link" href="https://github.com/PumingLi"><img src="{% static 'base/github.png' %}" alt="left_arrow" style="height:20px;width:auto;"></a></li>
+          <li class="bottom-item"><a class="nav-link" href="https://www.instagram.com/dirtydaveli/"><img src="{% static 'base/instagram.png' %}" alt="left_arrow" style="height:20px;width:auto;"></a></li>
+          <li class="bottom-item"><a class="nav-link" href="https://www.linkedin.com/in/pumingli/"><img src="{% static 'base/linkedin.png' %}" alt="left_arrow" style="height:20px;width:auto;"></a></li>
+          <li class="bottom-item"><a class="nav-link" href="https://github.com/PumingLi"><img src="{% static 'base/github.png' %}" alt="left_arrow" style="height:20px;width:auto;"></a></li>
         </ul>
       </div>
       <div class="col-md-3"></div>
