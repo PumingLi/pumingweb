@@ -3,7 +3,7 @@
 }
 
 .calendar-card:hover {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   background-color: rgba(255, 153, 153, 0.1);
   transform: scale(1.05);
   color: rgba(51, 0, 26, 0.5);
@@ -12,7 +12,7 @@
 .calendar-card {
   color: black;
   padding: 10px;
-  border:2px solid grey;
+  /* border:2px solid grey; */
   transition: transform .2s;
   border-radius: 5px;
   margin: 5px;
@@ -22,7 +22,7 @@
 .content-card {
   color: black;
   padding: 10px;
-  border:2px solid grey;
+  /* border:2px solid grey; */
   border-radius: 5px;
   margin: 5px;
   text-align: center;

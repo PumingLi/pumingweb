@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'diet.apps.DietConfig',
     'projects.apps.ProjectsConfig',
     'pos.apps.POSConfig',
+    'bayes.apps.BayesConfig',
     'fitness.apps.FitnessConfig',
     'about.apps.AboutConfig',
     'home.apps.HomeConfig',
