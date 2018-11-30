@@ -1,0 +1,16 @@
+<hr>
+<h3>Predictions</h3>
+<p>Results of the Naive Bayes Classifier.</p>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Scaled Ham Probability: {{ ham_prob }}</h4>
+  </div>
+  <div class="col-md-6">
+    <h4>Scaled Spam Probability: {{ spam_prob }}</h4>
+  </div>
+</div>
+{% if is_spam %}
+  <p style="font-size:30px;">Email is <span style="color:red;"><b>SPAM</b></span></p>
+{% else %}
+  <p style="font-size:30px;">Email is <span style="color:green;"><b>HAM</b></span></p>
+{% endif %}

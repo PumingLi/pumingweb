@@ -1,0 +1,28 @@
+.flex-row {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: .375rem .75rem;
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.word-tag {
+  text-align: center;
+  font-size: 20px;
+  transition: transform .2s;
+}
+
+.word-tag:hover {
+  background-color: rgba(255, 153, 153, 0.1);
+  transform: scale(1.05);
+  color: rgba(51, 0, 26, 0.5);
+}
+
+.tag {
+  color: grey;
+  font-size: 16px;
+}

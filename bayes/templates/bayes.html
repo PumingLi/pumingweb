@@ -16,8 +16,45 @@
     <br>
     <h1>Naive Bayes <span style="font-size:20px;color:grey;">(Under Construction)</span></h1>
     <br>
+    <p>
+    This Naive Bayes Classifer will classify an email's content as either spam or ham.
+    Using training data consisting of emails that are known to be spam or ham, all of the words in
+    those emails will be considered spam or ham based on what email they are in. The more a word
+    is seen in either class, the higher the probablity that seeing that word in an
+    unclassified email, will lead that email to be classified in that respective class.
+    </p>
+    <p>
+    When deciding whether an email is a ham or spam email, the classifer will consider each word in the
+    email independently, and will accumulate the probablities of the word being a spam word or ham word.
+    After accounting for all the words in the email, it will decide the class of the email based on which
+    scaled probablity is higher.
+    </p>
+    <h3>Input</h3>
+    <div class="form-group">
+      <label for="id_exercise_name">Input email content to be classified:</label>
+      <textarea class="form-control" id="email-input" rows="6"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" id="classify-button" style="align:right;background-color: #33001a;">Classify</button>
+    <div id="predictions"></div>
+    <br>
   </div>
   <div class="col-md-3"></div>
 </div>
+
+<script>
+  document.getElementById('email-input').value = "Dear Customer, Introducing our new discounts! Come in today for door buster sales!";
+
+  document.getElementById("classify-button").addEventListener("click", function(event){
+      event.preventDefault()
+      var input = $('#email-input').val();
+      var dest = "/projects/bayes/classify_input/" + encodeURIComponent(String(input));
+      $.ajax({
+        url: dest,
+        success: function(data) {
+        $('#predictions').html(data);
+        }
+      });
+  });
+</script>
 
 {% endblock %}

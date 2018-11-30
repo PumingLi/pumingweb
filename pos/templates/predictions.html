@@ -1,0 +1,12 @@
+<hr>
+<h3>Predictions</h3>
+<p>These are the predictions for the words in the input. All words will be tagged with one of the Universal Part-of-Speech Tags.</p>
+<div class="flex-row">
+  {% for prediction in predictions %}
+    {% for p in prediction %}
+      <div class="word-tag">
+        <p>&nbsp;{{ p.0 }}&nbsp;<br><span class="tag">&nbsp;{{ p.1 }}&nbsp;</span></p>
+      </div>
+    {% endfor %}
+  {% endfor %}
+</div>

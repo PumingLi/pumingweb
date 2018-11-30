@@ -107,16 +107,31 @@
       </div>
     </div>
    <h3>Input</h3>
-   {% csrf_token %}
    <div class="form-group">
      <label for="id_exercise_name">Input a paragraph to be tagged:</label>
-     {% render_field form.paragraph class+="form-control"|append_attr:"readonly:readonly" placeholder="It was Ms. Fitzhugh. She was walking fast. A strange expression crossed the faces of the students as they glanced toward the door and saw the principal go straight into the boys’ restroom. The footsteps stopped. There was a deep, throaty sound difficult to describe. Then came an eruption of shrill screaming and a rapid sound of heels. Moments later, Ms. Fitzhugh emerged, her eyes wild. Screaming, she skidded in the hall and headed toward the office." %}
+     <textarea class="form-control" id="paragraph" rows="6"></textarea>
    </div>
-   <hr>
-   <h3>Predictions</h3>
-   <p>These are the predictions for the words in the input. All words will be tagged with one of the Universal Part-of-Speech Tags.</p>
+   <button type="submit" class="btn btn-primary" id="predict-button" style="align:right;background-color: #33001a;">Predict Tags</button>
+   <div id="predictions"></div>
+   <br>
   </div>
   <div class="col-md-3"></div>
 </div>
+
+<script>
+  document.getElementById('paragraph').value = "It was Ms. Fitzhugh. She was walking fast. A strange expression crossed the faces of the students as they glanced toward the door and saw the principal go straight into the boys’ restroom. The footsteps stopped. There was a deep, throaty sound difficult to describe. Then came an eruption of shrill screaming and a rapid sound of heels. Moments later, Ms. Fitzhugh emerged, her eyes wild. Screaming, she skidded in the hall and headed toward the office.";
+  
+  document.getElementById("predict-button").addEventListener("click", function(event){
+      event.preventDefault()
+      var input = $('#paragraph').val();
+      var dest = "/projects/pos/tag_input/" + encodeURIComponent(String(input));
+      $.ajax({
+        url: dest,
+        success: function(data) {
+        $('#predictions').html(data);
+        }
+      });
+  });
+</script>
 
 {% endblock %}
