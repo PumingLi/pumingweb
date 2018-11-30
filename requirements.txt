@@ -5,6 +5,10 @@ django-bootstrap4==0.0.7
 django-jquery==3.1.0
 django-widget-tweaks==1.4.3
 idna==2.7
+numpy==1.15.4
+pandas==0.23.4
+python-dateutil==2.7.5
 pytz==2018.5
 requests==2.19.1
+six==1.11.0
 urllib3==1.23
