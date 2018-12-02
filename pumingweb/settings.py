@@ -30,7 +30,9 @@ ALLOWED_HOSTS = ['localhost',
                  'ec2-34-209-212-235.us-west-2.compute.amazonaws.com',
                  '34.209.212.235',
                  'yeetcode.ml',
-                 'www.yeetcode.ml',]
+                 'www.yeetcode.ml',
+                 'yeetcode.net',
+                 'www.yeetcode.net',]
 
 # Application definition
 
