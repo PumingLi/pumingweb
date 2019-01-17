@@ -64,7 +64,20 @@ class NutritionMonth(models.Model):
                                        cur_date=date(_day_t.tm_year, _day_t.tm_mon, _day_t.tm_mday),
                                        weekday=WEEK_MAP[count],
                                        day_slug=_slug)
-                cur_day.save()
+
+            cur_day.calories = 0
+            cur_day.carbs = 0
+            cur_day.protein = 0
+            cur_day.fat = 0
+
+            for food in cur_day.fooditem_set.all():
+                cur_day.calories += food.calories
+                cur_day.carbs += food.carbs
+                cur_day.protein += food.protein
+                cur_day.fat += food.fat
+
+            cur_day.save()
+
             count+=1
             week_iter.append(cur_day)
 
@@ -73,16 +86,18 @@ class NutritionMonth(models.Model):
                 month_iter.append(week_iter)
                 week_iter = []
 
+
+
         return month_iter
 
 
     def fill_month(self, day=None):
+
         random.seed(int(datetime.now().timestamp()))
         past_foods = list(FoodItem.objects.all())
         past_exercise = list(ExerciseItem.objects.all())
         month_days = self.nutritionday_set.filter(cur_date__month=self.month_num)
         for d in range(1, date.today().day + 1):
-            print(d)
             day = month_days.get(cur_date__day=d)
             if not day.fooditem_set.all():
 
@@ -91,6 +106,7 @@ class NutritionMonth(models.Model):
 
                 for e in random.sample(past_exercise, k=random.randrange(0, 6)):
                     e.copy_to_date(day)
+
 
 
 class NutritionDay(models.Model):
@@ -166,7 +182,7 @@ class NutritionDay(models.Model):
 
 class FoodItem(models.Model):
 
-    day = models.ForeignKey(NutritionDay, on_delete=models.CASCADE)
+    days = models.ManyToManyField(NutritionDay)
     name = models.TextField(default="N/A")
     type = models.CharField(default="Snack", choices=[(m,m) for m in MEALS], max_length=100)
     calories = models.IntegerField(default=0)
@@ -175,13 +191,12 @@ class FoodItem(models.Model):
     fat = models.IntegerField(default=0)
 
     def __str__(self):
-        return 'FoodItem: %s (%s)' % (self.name, self.day.day_slug)
+        return 'FoodItem: %s' % (self.name)
 
     def randomize_type(self):
         random.seed(self.id)
         self.type = random.choice(MEALS)
         self.save()
-
 
     def copy_to_date(self, date):
 
@@ -190,23 +205,14 @@ class FoodItem(models.Model):
         date.protein += self.protein
         date.fat += self.fat
         date.save()
-
-        new_food = FoodItem(day=date,
-                            name=self.name,
-                            type=self.type,
-                            calories=self.calories,
-                            carbs=self.carbs,
-                            protein=self.protein,
-                            fat=self.fat)
-
-        new_food.save()
-        return new_food
+        self.days.add(date)
+        self.save()
 
 
 
 class ExerciseItem(models.Model):
 
-    day = models.ForeignKey(NutritionDay, on_delete=models.CASCADE)
+    days = models.ManyToManyField(NutritionDay)
     name = models.CharField(default="N/A", max_length=100)
     type = models.CharField(default="Push", choices=[(e,e) for e in EXERCISES], max_length=100)
     reps = models.IntegerField(default=0)
@@ -215,17 +221,9 @@ class ExerciseItem(models.Model):
     time = models.IntegerField(default=0)
 
     def __str__(self):
-        return 'ExerciseItem: %s (%s)' % (self.name, self.day.day_slug)
+        return 'ExerciseItem: %s' % (self.name)
 
     def copy_to_date(self, date):
 
-        new_exer = ExerciseItem(day=date,
-                                name=self.name,
-                                type=self.type,
-                                reps=self.reps,
-                                sets=self.sets,
-                                weight=self.weight,
-                                time=self.time)
-
-        new_exer.save()
-        return new_exer
+        self.days.add(date)
+        self.save()

@@ -32,7 +32,6 @@ def month_current(request):
     prev_year, prev_month = cur_month.get_month_offset(-1)
     next_year, next_month = cur_month.get_month_offset(1)
 
-    print(cur_month.month_slug)
     cur_month.fill_month()
 
     context = {'cur_month': today.tm_mon,
