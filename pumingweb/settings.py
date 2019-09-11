@@ -26,10 +26,7 @@ SECRET_KEY = '6!l^&fsdzh9fw5+ijgxkedu!)!37_6l$it@l5z2a7um=kesv4%'
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
-                 'ec2-34-220-126-33.us-west-2.compute.amazonaws.com',
-                 'pumingwebenv.cqj23hp7xb.us-west-2.elasticbeanstalk.com',
-                 'ec2-34-209-212-235.us-west-2.compute.amazonaws.com',
-                 '34.209.212.235',
+                 'ec2-34-220-214-61.us-west-2.compute.amazonaws.com',
                  'yeetcode.ml',
                  'www.yeetcode.ml',
                  'yeetcode.net',

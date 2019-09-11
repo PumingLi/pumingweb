@@ -64,6 +64,7 @@ class NutritionMonth(models.Model):
                                        cur_date=date(_day_t.tm_year, _day_t.tm_mon, _day_t.tm_mday),
                                        weekday=WEEK_MAP[count],
                                        day_slug=_slug)
+                cur_day.save()
 
             cur_day.calories = 0
             cur_day.carbs = 0
@@ -132,13 +133,14 @@ class NutritionDay(models.Model):
         self.fat += fat
         self.save()
 
-        item = FoodItem(day=self,
-                        name="{} ({})".format(name.replace("%2F", "/"), brand.replace("%2F", "/")),
+        item = FoodItem(name="{} ({})".format(name.replace("%2F", "/"), brand.replace("%2F", "/")),
                         type=meal,
                         calories=calories,
                         carbs=carbs,
                         protein=protein,
                         fat=fat)
+        item.save()
+        item.days.add(self)
         item.save()
 
     def get_day_offset(self, delta):

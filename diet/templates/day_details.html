@@ -40,7 +40,7 @@
     <h1>Diet Breakdown</h1>
     <h2 style="text-align:center;">Calories</h2>
 
-    <div id="calories-donut" style="width: 100%; height: 55%"></div>
+    <div id="calories-donut" style="height: 50em;"></div>
     <p style="text-align:center;"> {{day.calories}}/{% widthratio daily_p.CALORIES 1 100 %} | {% widthratio day.calories daily_p.CALORIES 1 %}%</p>
     <div class="progress">
       {% for f in day_items %}
@@ -51,7 +51,7 @@
     <div class="row">
       <div class="col-md-4">
         <h3 style="text-align:center;align:center;">Protein</h3>
-        <div id="protein-donut" style="align:center; width:100%; height:35%"></div>
+        <div id="protein-donut"></div>
         <p style="text-align:center;"> {{day.protein}}/{% widthratio daily_p.PROTEIN 1 100 %} | {% widthratio day.protein daily_p.PROTEIN 1 %}%</p>
         <div class="progress">
           {% for f in day_items %}
@@ -61,7 +61,7 @@
       </div>
       <div class="col-md-4">
         <h3 style="text-align:center;align:center;">Carbohydrates</h3>
-        <div id="carb-donut" style="align:center; width:100%; height:35%"></div>
+        <div id="carb-donut"></div>
         <p style="text-align:center;"> {{day.carbs}}/{% widthratio daily_p.CARBS 1 100 %} | {% widthratio day.carbs daily_p.CARBS 1 %}%</p>
         <div class="progress">
           {% for f in day_items %}
@@ -71,7 +71,7 @@
       </div>
       <div class="col-md-4">
         <h3 style="text-align:center;align:center;">Fats</h3>
-        <div id="fat-donut" style="align:center; width:100%; height:35%"></div>
+        <div id="fat-donut"></div>
         <p style="text-align:center;"> {{day.fat}}/{% widthratio daily_p.FAT 1 100 %} | {% widthratio day.fat daily_p.FAT 1 %}%</p>
         <div class="progress">
           {% for f in day_items %}

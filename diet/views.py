@@ -165,15 +165,16 @@ def add_exercise(request, year_a, month_a, day_a, slug):
     f = ExerciseForm(request.POST)
     if f.is_valid():
         cur_day = NutritionDay.objects.get(day_slug=slug)
-        item = ExerciseItem(day=cur_day,
-                            name=f.cleaned_data['exercise_name'],
+        item = ExerciseItem(name=f.cleaned_data['exercise_name'],
                             type=f.cleaned_data['exercise_type'],
                             reps=f.cleaned_data['exercise_reps'],
                             sets=f.cleaned_data['exercise_sets'],
                             weight=f.cleaned_data['exercise_weight'],
                             time=f.cleaned_data['exercise_time'])
         item.save()
-
+        item.days.add(cur_day)
+        item.save()
+        
     return redirect('day_view', year=year_a, month=month_a, day=day_a)
 
 def food_search(request, slug, query, meal):
